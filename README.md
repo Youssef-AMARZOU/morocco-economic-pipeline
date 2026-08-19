@@ -248,7 +248,7 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 
 #### Social - Pauvrete : Reel vs Predit
 ![Social Pred](kaggle_kernel/out/social_pred_pauvrete.png)
-> **Pauvrete predite par Random Forest.** Le modele suit correctement la tendance descendante de la pauvrete. Les predictions confirment la reduction continue sous l'effet des politiques publiques.
+> **Pauvrete au Maroc.** Tendance descendante continue de 15% (1990) a 4% (2020). Les variables trendees (pauvrete) ne sont pas predictibles par ML avec un split temporel — le modele ne peut pas generaliser sur des valeurs systematiquement differentes.
 
 #### Education - Taux d'inscription
 ![Education Enrollment](kaggle_kernel/out/education_enrollment.png)
@@ -260,7 +260,7 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 
 #### Education - Reel vs Predit
 ![Education Pred](kaggle_kernel/out/education_pred.png)
-> **Education secondaire predite.** Le modele Random Forest predit correctement l'evolution de l'inscription secondaire, validant l'impact des investissements educationnels.
+> **Inscription secondaire.** Croissance reguliere de 25% (1971) a 70% (2023). Les variables trendees ne sont pas predictibles par ML — un modele lineaire avec le temps comme feature serait plus approprie.
 
 #### Sante - Mortalite et esperance de vie
 ![Sante Mortality](kaggle_kernel/out/sante_mortality.png)
@@ -268,7 +268,7 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 
 #### Sante - Reel vs Predit
 ![Sante Pred](kaggle_kernel/out/sante_pred.png)
-> **Esperance de vie predite.** Le modele suit la tendance haussiere, confirmant l'amelioration continue des conditions sanitaires au Maroc.
+> **Esperance de vie.** Progression constante de 55 ans (1971) a 77 ans (2023). L'amelioration des conditions sanitaires est un processus structurel lent, pas predictable par des indicateurs macroeconomiques annuels.
 
 #### Bourse - Prix et volatilite
 ![Bourse Prices](kaggle_kernel/out/bourse_prices.png)
