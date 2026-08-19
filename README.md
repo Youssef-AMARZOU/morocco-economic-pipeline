@@ -87,7 +87,11 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 
 #### Sectoral Composition
 ![Sectors](kaggle_kernel/out/sector.png)
-> **Composition sectorielle du PIB.** Agriculture (NV.AGR.TOTL.ZS) drops from ~20% to ~12% of GDP, while Services (NV.SRV.TOTL.ZS) rise from ~50% to ~55%. Industry (NV.IND.TOTL.ZS) remains stable around 30%. This structural transformation is typical of middle-income countries transitioning to service-based economies.
+> **Composition sectorielle du PIB (donnees reelles WB).** L'agriculture chute de 23% (1965) a 11% (2023), reflet de la modernisation economye. L'industrie reste stable autour de 25-28%, sans industrialisation massive. Les services progressent de 47% a 54%, moteur principal de la croissance. Cette transition est typique des pays a revenu intermediaire.
+
+#### Evolution sectorielle (lignes)
+![Sector Lines](kaggle_kernel/out/sector_lines.png)
+> **Evolution detaillee par secteur (1980-2023).** On observe clairement le declin agricole (15% -> 11%) et la montee des services (47% -> 54%). L'industrie stagne a 25-28%, revelant l'absence d'industrialisation profonde au Maroc.
 
 #### Correlation Matrix
 ![Correlation](kaggle_kernel/out/corr.png)
@@ -139,7 +143,7 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 
 #### Prediction vs Realite
 ![DL Pred](kaggle_kernel/out/dl_pred_vs_actual.png)
-> **Prediction vs Realite.** Les points se concentrent autour de la droite y=x, indiquant une bonne calibration. Le modele capture correctement l'evolution du PIB sur toute la gamme de valeurs ($10B - $150B).
+> **Prediction vs Realite.** Les points verts (train) et rouges (test) se concentrent autour de la droite y=x. La droite de regression (bleue) confirme la calibration du modele. R2 train et R2 test sont proches, confirmant l'absence de surapprentissage.
 
 #### Analyse des residus
 ![DL Residuals](kaggle_kernel/out/dl_residuals.png)
