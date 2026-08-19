@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-08-19T17:23:12.200197",
+  "total": 2,
+  "critical": 0,
+  "warnings": 0,
+  "info": 2,
+  "alerts": [
+    {
+      "severity": "INFO",
+      "category": "PIPELINE",
+      "source": "data_ops_check",
+      "message": "Pipeline started",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.006248"
+    },
+    {
+      "severity": "INFO",
+      "category": "PIPELINE",
+      "source": "data_ops_check",
+      "message": "Pipeline completed in 0.0min",
+      "details": {
+        "duration_minutes": 0.0,
+        "stats": null
+      },
+      "timestamp": "2026-08-19T17:23:12.200197"
+    }
+  ]
+}

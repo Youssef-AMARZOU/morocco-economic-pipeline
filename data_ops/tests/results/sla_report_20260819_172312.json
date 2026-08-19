@@ -1,0 +1,81 @@
+{
+  "pipeline": "morocco-economic-pipeline",
+  "timestamp": "2026-08-19T17:23:12.074287",
+  "freshness": {
+    "total": 5,
+    "passed": 3,
+    "details": [
+      {
+        "table": "bank_prices",
+        "sla": "critical",
+        "status": "STALE",
+        "age_hours": 18.4,
+        "sla_hours": 6
+      },
+      {
+        "table": "indicators_clean",
+        "sla": "critical",
+        "status": "STALE",
+        "age_hours": 18.4,
+        "sla_hours": 6
+      },
+      {
+        "table": "master_dataset",
+        "sla": "standard",
+        "status": "FRESH",
+        "age_hours": 16.2,
+        "sla_hours": 24
+      },
+      {
+        "table": "benchmark_morocco",
+        "sla": "standard",
+        "status": "FRESH",
+        "age_hours": 18.4,
+        "sla_hours": 24
+      },
+      {
+        "table": "dim_indicators",
+        "sla": "batch",
+        "status": "FRESH",
+        "age_hours": 18.4,
+        "sla_hours": 168
+      }
+    ]
+  },
+  "volume": {
+    "total": 5,
+    "passed": 3,
+    "details": [
+      {
+        "table": "indicators_clean",
+        "actual": 8927,
+        "expected": 72,
+        "status": "BREACH"
+      },
+      {
+        "table": "master_dataset",
+        "actual": 72,
+        "expected": 54,
+        "status": "OK"
+      },
+      {
+        "table": "dim_indicators",
+        "actual": 210,
+        "expected": 120,
+        "status": "BREACH"
+      },
+      {
+        "table": "bank_prices",
+        "actual": 24890,
+        "expected": 5000,
+        "status": "OK"
+      },
+      {
+        "table": "benchmark_morocco",
+        "actual": 14,
+        "expected": 30,
+        "status": "OK"
+      }
+    ]
+  }
+}

@@ -1,0 +1,2327 @@
+{
+  "timestamp": "2026-08-19T17:23:12.196793",
+  "total_alerts": 236,
+  "critical": 10,
+  "warnings": 29,
+  "info": 197,
+  "alerts": [
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "bank_prices",
+      "message": "Price: 237 anomalous values (1.0%)",
+      "details": {
+        "column": "Price",
+        "count": 237,
+        "pct": 0.95,
+        "mean": 380.3487,
+        "std": 244.861
+      },
+      "timestamp": "2026-08-19T17:23:12.108987"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "bank_prices",
+      "message": "Open: 245 anomalous values (1.0%)",
+      "details": {
+        "column": "Open",
+        "count": 245,
+        "pct": 0.98,
+        "mean": 379.754,
+        "std": 244.6692
+      },
+      "timestamp": "2026-08-19T17:23:12.109987"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "bank_prices",
+      "message": "High: 254 anomalous values (1.0%)",
+      "details": {
+        "column": "High",
+        "count": 254,
+        "pct": 1.02,
+        "mean": 382.7556,
+        "std": 246.3631
+      },
+      "timestamp": "2026-08-19T17:23:12.109987"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "bank_prices",
+      "message": "Low: 233 anomalous values (0.9%)",
+      "details": {
+        "column": "Low",
+        "count": 233,
+        "pct": 0.94,
+        "mean": 377.3551,
+        "std": 243.0676
+      },
+      "timestamp": "2026-08-19T17:23:12.110985"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "bank_prices",
+      "message": "Volume: 213 anomalous values (0.9%)",
+      "details": {
+        "column": "Volume",
+        "count": 213,
+        "pct": 0.86,
+        "mean": 38035.3878,
+        "std": 175737.3459
+      },
+      "timestamp": "2026-08-19T17:23:12.110985"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "bank_prices",
+      "message": "Change_pct: 612 anomalous values (2.5%)",
+      "details": {
+        "column": "Change_pct",
+        "count": 612,
+        "pct": 2.46,
+        "mean": 0.0502,
+        "std": 1.8765
+      },
+      "timestamp": "2026-08-19T17:23:12.111994"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "benchmark_morocco",
+      "message": "region: 35.7% nulls (>= 20.0%)",
+      "details": {
+        "column": "region",
+        "null_pct": 35.71
+      },
+      "timestamp": "2026-08-19T17:23:12.116010"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "benchmark_morocco",
+      "message": "region_avg: 35.7% nulls (>= 20.0%)",
+      "details": {
+        "column": "region_avg",
+        "null_pct": 35.71
+      },
+      "timestamp": "2026-08-19T17:23:12.116010"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "benchmark_morocco",
+      "message": "year: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.116010"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "benchmark_morocco",
+      "message": "morocco: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.116010"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "benchmark_morocco",
+      "message": "world_avg: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.116989"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "benchmark_morocco",
+      "message": "rank_out_of: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.116989"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "benchmark_morocco",
+      "message": "morocco_rank: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.116989"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "VOLUME",
+      "table": "benchmark_morocco",
+      "message": "Volume drop: 14 rows (expected 30, -53.3%)",
+      "details": {
+        "actual": 14,
+        "expected": 30,
+        "drop_pct": 53.33
+      },
+      "timestamp": "2026-08-19T17:23:12.116989"
+    },
+    {
+      "severity": "WARNING",
+      "category": "SCHEMA",
+      "table": "benchmark_morocco",
+      "message": "New columns detected: {'world_avg', 'morocco_rank', 'region', 'region_avg', 'indicator', 'rank_out_of', 'morocco', 'source'}",
+      "details": {
+        "added": [
+          "world_avg",
+          "morocco_rank",
+          "region",
+          "region_avg",
+          "indicator",
+          "rank_out_of",
+          "morocco",
+          "source"
+        ]
+      },
+      "timestamp": "2026-08-19T17:23:12.116989"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "dim_indicators",
+      "message": "years_min: 2 anomalous values (1.0%)",
+      "details": {
+        "column": "years_min",
+        "count": 2,
+        "pct": 0.95,
+        "mean": 1983.081,
+        "std": 22.233
+      },
+      "timestamp": "2026-08-19T17:23:12.121007"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "dim_indicators",
+      "message": "years_max: 5 anomalous values (2.4%)",
+      "details": {
+        "column": "years_max",
+        "count": 5,
+        "pct": 2.38,
+        "mean": 2024.7381,
+        "std": 3.5397
+      },
+      "timestamp": "2026-08-19T17:23:12.121007"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "dim_indicators",
+      "message": "n_obs: 2 anomalous values (1.0%)",
+      "details": {
+        "column": "n_obs",
+        "count": 2,
+        "pct": 0.95,
+        "mean": 33.9857,
+        "std": 20.0262
+      },
+      "timestamp": "2026-08-19T17:23:12.121007"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "SCHEMA",
+      "table": "dim_indicators",
+      "message": "Missing columns: {'indicator_name', 'category', 'indicator_code'}",
+      "details": {
+        "missing": [
+          "indicator_name",
+          "category",
+          "indicator_code"
+        ]
+      },
+      "timestamp": "2026-08-19T17:23:12.121007"
+    },
+    {
+      "severity": "WARNING",
+      "category": "SCHEMA",
+      "table": "dim_indicators",
+      "message": "New columns detected: {'years_max', 'dataset', 'code', 'name', 'years_min', 'n_obs'}",
+      "details": {
+        "added": [
+          "years_max",
+          "dataset",
+          "code",
+          "name",
+          "years_min",
+          "n_obs"
+        ]
+      },
+      "timestamp": "2026-08-19T17:23:12.121007"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "indicators_clean",
+      "message": "value: 20.1% nulls (>= 20.0%)",
+      "details": {
+        "column": "value",
+        "null_pct": 20.05
+      },
+      "timestamp": "2026-08-19T17:23:12.133007"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "indicators_clean",
+      "message": "entity: 68.6% nulls (>= 20.0%)",
+      "details": {
+        "column": "entity",
+        "null_pct": 68.62
+      },
+      "timestamp": "2026-08-19T17:23:12.133007"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "indicators_clean",
+      "message": "year: 86 anomalous values (1.0%)",
+      "details": {
+        "column": "year",
+        "count": 86,
+        "pct": 0.96,
+        "mean": 1998.2862,
+        "std": 20.2679
+      },
+      "timestamp": "2026-08-19T17:23:12.134525"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "indicators_clean",
+      "message": "value: 131 anomalous values (1.8%)",
+      "details": {
+        "column": "value",
+        "count": 131,
+        "pct": 1.84,
+        "mean": 1914460024.9279,
+        "std": 12215350624.0669
+      },
+      "timestamp": "2026-08-19T17:23:12.134525"
+    },
+    {
+      "severity": "WARNING",
+      "category": "SCHEMA",
+      "table": "indicators_clean",
+      "message": "New columns detected: {'dataset', 'code', 'value', 'is_missing', 'name', 'year_valid', 'entity', 'source'}",
+      "details": {
+        "added": [
+          "dataset",
+          "code",
+          "value",
+          "is_missing",
+          "name",
+          "year_valid",
+          "entity",
+          "source"
+        ]
+      },
+      "timestamp": "2026-08-19T17:23:12.134525"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "master_dataset",
+      "message": "FR.INR.LEND: 100.0% nulls (>= 20.0%)",
+      "details": {
+        "column": "FR.INR.LEND",
+        "null_pct": 100.0
+      },
+      "timestamp": "2026-08-19T17:23:12.147085"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "master_dataset",
+      "message": "FR.INR.RINR: 100.0% nulls (>= 20.0%)",
+      "details": {
+        "column": "FR.INR.RINR",
+        "null_pct": 100.0
+      },
+      "timestamp": "2026-08-19T17:23:12.147085"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "master_dataset",
+      "message": "prix_moyen: 72.2% nulls (>= 20.0%)",
+      "details": {
+        "column": "prix_moyen",
+        "null_pct": 72.22
+      },
+      "timestamp": "2026-08-19T17:23:12.150085"
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "NULL",
+      "table": "master_dataset",
+      "message": "volatilite: 72.2% nulls (>= 20.0%)",
+      "details": {
+        "column": "volatilite",
+        "null_pct": 72.22
+      },
+      "timestamp": "2026-08-19T17:23:12.150085"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "year: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.151510"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "BCA: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.152526"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "BCA_NGDPD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.152526"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDI_TC: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.153520"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.153520"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGCBP_G01_PGDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGCB_G01_PGDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGR_G01_GDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGXCNL_NGDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGXONLB_G01_GDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGXWDG_NGDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GGXWDN_G01_GDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.154528"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GII_TC: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.156045"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "G_XWDG_G01_GDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.156045"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "G_X_G01_GDP_PT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.156045"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "LP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.156045"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "LUR: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.156045"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NGDPD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.157067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NGDPDPC: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.157067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NGDP_RPCH: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.157067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PCPIEPCH: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.157067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PCPIPCH: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.157067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PPPEX: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.157067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PPPGDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.158067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PPPPC: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.158067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PPPSH: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.158067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Reserves_ARA: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.158067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Reserves_M: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.158067"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Reserves_STD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.159064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "d: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.159064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "exp: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.159064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ie: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.159064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "pb: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.159064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "prim_exp: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.159064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "rev: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.160064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "rgc: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.160064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "rltir: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.160064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "total_theil: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.160064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Current_Account_Bal_USD_Bn: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.160064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Current_Account_Pct_GDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.161066"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Economic_Resilience_Score: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.161066"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Export_Volume_Growth_Pct: 5 anomalous values (6.9%)",
+      "details": {
+        "column": "Export_Volume_Growth_Pct",
+        "count": 5,
+        "pct": 6.94,
+        "mean": 6.3691,
+        "std": 0.4292
+      },
+      "timestamp": "2026-08-19T17:23:12.161066"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDP_Growth_Momentum_3Y: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.161066"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDP_Nominal_USD_Bn: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.161066"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDP_PPP_Per_Capita_USD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.162064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDP_PPP_USD_Bn: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.162064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GDP_Per_Capita_USD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.162064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Govt_Gross_Debt_Pct_GDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.162064"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Govt_Net_Lending_Pct_GDP: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.162064"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Govt_Revenue_Pct_GDP: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "Govt_Revenue_Pct_GDP",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 24.7059,
+        "std": 0.1698
+      },
+      "timestamp": "2026-08-19T17:23:12.163082"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Import_Volume_Growth_Pct: 5 anomalous values (6.9%)",
+      "details": {
+        "column": "Import_Volume_Growth_Pct",
+        "count": 5,
+        "pct": 6.94,
+        "mean": 6.2706,
+        "std": 0.7807
+      },
+      "timestamp": "2026-08-19T17:23:12.163082"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Inflation_CPI_Pct: 5 anomalous values (6.9%)",
+      "details": {
+        "column": "Inflation_CPI_Pct",
+        "count": 5,
+        "pct": 6.94,
+        "mean": 1.8586,
+        "std": 0.3025
+      },
+      "timestamp": "2026-08-19T17:23:12.163082"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Population_Mn: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.163082"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Real_GDP_Growth_Pct: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "Real_GDP_Growth_Pct",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 3.4142,
+        "std": 0.4148
+      },
+      "timestamp": "2026-08-19T17:23:12.163082"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Real_Purchasing_Power_Growth: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.164081"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "Unemployment_Rate_Pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.164081"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "child-mortality-rate: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.164081"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "co2-emissions-per-capita: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.164081"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gross-enrollment-ratio-in-secondary-education: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.164081"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "human-development-index: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.165088"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "life-expectancy-at-birth: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.165088"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "literacy-rate: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.165088"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "population: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.165088"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "renewable-share-energy: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.166110"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "share-of-population-in-extreme-poverty: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.166110"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "unemployment-rate: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.166110"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "abr: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.167075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "co2_prod: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.167075"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "coef_ineq: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "coef_ineq",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 26.504,
+        "std": 0.2694
+      },
+      "timestamp": "2026-08-19T17:23:12.167075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "diff_hdi_phdi: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.167075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "eys: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.168075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "eys_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.168075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "eys_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.168075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gdi: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.168075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gii: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.168075"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gni_pc_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.169076"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gni_pc_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.169076"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gnipc: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.170074"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "hdi: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.170074"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "hdi_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.170074"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "hdi_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.171186"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ihdi: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "ihdi",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 0.4714,
+        "std": 0.0066
+      },
+      "timestamp": "2026-08-19T17:23:12.171186"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ineq_edu: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "ineq_edu",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 43.3034,
+        "std": 0.3589
+      },
+      "timestamp": "2026-08-19T17:23:12.171186"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ineq_inc: 5 anomalous values (6.9%)",
+      "details": {
+        "column": "ineq_inc",
+        "count": 5,
+        "pct": 6.94,
+        "mean": 22.6609,
+        "std": 0.0488
+      },
+      "timestamp": "2026-08-19T17:23:12.172197"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ineq_le: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "ineq_le",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 13.3718,
+        "std": 0.3734
+      },
+      "timestamp": "2026-08-19T17:23:12.172197"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "le: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.172197"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "le_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.172197"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "le_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.173198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "lfpr_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.173198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "lfpr_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.173198"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "loss: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "loss",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 27.615,
+        "std": 0.2894
+      },
+      "timestamp": "2026-08-19T17:23:12.173198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "mf: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.173198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "mmr: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.173198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "mys: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.174199"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "mys_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.174199"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "mys_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.174199"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "phdi: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.174199"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "pr_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.174199"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "pr_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.175198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "se_f: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.175198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "se_m: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.175198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "AG.LND.AGRI.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.175198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "AG.LND.FRST.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.175198"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "BN.CAB.XOKA.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.176202"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "BN.CAB.XOKA.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.176202"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "BX.KLT.DINV.CD.WD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.176202"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "BX.TRF.CURR.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.176711"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "DT.DOD.DECT.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.176711"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "DT.DOD.DECT.GN.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.177220"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "EG.ELC.ACCS.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.177220"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "EG.FEC.RNEW.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.177220"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "EG.USE.ELEC.KH.PC: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.177220"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "EG.USE.PCAP.KG.OE: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.177220"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "EN.POP.SLUM.UR.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.177220"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "FB.AST.NPER.ZS: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "FB.AST.NPER.ZS",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 7.7017,
+        "std": 0.1798
+      },
+      "timestamp": "2026-08-19T17:23:12.178231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "FM.LBL.BMNY.ZG: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.178231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "FP.CPI.TOTL.ZG: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.178231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "FS.AST.PRVT.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.178231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GC.DOD.TOTL.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.179233"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GC.REV.XGRT.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.179233"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "GC.XPN.TOTL.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.179233"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "IT.NET.BBND.P2: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.179233"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "IT.NET.USER.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.179233"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "MS.MIL.XPND.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.179233"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NE.EXP.GNFS.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.180232"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NE.IMP.GNFS.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.180232"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NE.TRD.GNFS.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.180232"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NV.AGR.TOTL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.180232"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NV.IND.MANF.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.180232"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NV.IND.TOTL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.181231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NV.SRV.TOTL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.181231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.ADJ.AEDU.GN.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.181231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GDP.DEFL.KD.ZG: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.181231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GDP.MKTP.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.181231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GDP.MKTP.KD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.181231"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GDP.MKTP.KD.ZG: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.182241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GDP.PCAP.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.182241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GDP.PCAP.KD.ZG: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.182241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GNP.PCAP.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.182241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "NY.GSR.NFCY.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.182241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "PA.NUS.FCRF: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.182241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SE.PRM.NENR: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.183244"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SE.SEC.NENR: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.183244"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SE.XPD.TOTL.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.183244"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SH.XPD.CHEX.GD.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.183244"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SI.POV.DDAY: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.183244"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SI.POV.GINI: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.184253"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SI.POV.NAHC: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.184253"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.AGR.EMPL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.184253"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.IND.EMPL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.184253"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.SRV.EMPL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.184253"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.TLF.ACTI.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.184253"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.TLF.TOTL.FE.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.185245"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.UEM.TOTL.FE.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.185245"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.UEM.TOTL.MA.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.185245"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SL.UEM.TOTL.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.185245"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.DYN.CBRT.IN: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.186240"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.DYN.CDRT.IN: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.187241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.DYN.IMRT.IN: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.187241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.DYN.LE00.IN: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.187241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.DYN.TFRT.IN: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.187241"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.POP.1564.TO.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.188246"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.POP.65UP.TO.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.188246"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.POP.TOTL: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.188246"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.POP.TOTL.FE.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.188246"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "SP.URB.TOTL.IN.ZS: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.189248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ST.INT.ARVL: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.189248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ST.INT.DPRT: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.189248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "ST.INT.TVLR.CD: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.189248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "agricultural_land_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.189248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "basic_sanitation_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.189248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "education_exp_pct_gdp: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.190248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "electricity_access_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.190248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "energy_use_per_capita: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.190248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "enrollment_primary_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.190248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "enrollment_secondary_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.190248"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "enrollment_tertiary_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "fdi_inflows_pct_gdp: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "female_labor_participation_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "fertility_rate: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "food_production_index: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "freshwater_withdrawal_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gdp_growth_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gdp_per_capita_usd: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.191250"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gdp_usd: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.192767"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gini_index: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.192767"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gni_per_capita_usd: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.192767"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "gov_debt_pct_gdp: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "gov_debt_pct_gdp",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 48.412,
+        "std": 0.4049
+      },
+      "timestamp": "2026-08-19T17:23:12.192767"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "health_exp_pct_gdp: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.192767"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "inflation_cpi_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.193794"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "inflation_gdp_deflator_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.193794"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "internet_users_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.193794"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "life_expectancy: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.193794"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "literacy_adult_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.193794"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "manufacturing_pct_gdp: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.193794"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "mobile_subscriptions_per_100: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.194788"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "population_growth_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.194788"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "poverty_215_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.194788"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "safe_drinking_water_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.194788"
+    },
+    {
+      "severity": "WARNING",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "trade_pct_gdp: 4 anomalous values (5.6%)",
+      "details": {
+        "column": "trade_pct_gdp",
+        "count": 4,
+        "pct": 5.56,
+        "mean": 70.3053,
+        "std": 5.0842
+      },
+      "timestamp": "2026-08-19T17:23:12.194788"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "under5_mortality: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.195787"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "unemployment_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.195787"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "urban_population_pct: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.195787"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "prix_moyen: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.195787"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "volatilite: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.195787"
+    },
+    {
+      "severity": "INFO",
+      "category": "ANOMALY",
+      "table": "master_dataset",
+      "message": "regime: no anomalies detected",
+      "details": {},
+      "timestamp": "2026-08-19T17:23:12.196793"
+    },
+    {
+      "severity": "WARNING",
+      "category": "SCHEMA",
+      "table": "master_dataset",
+      "message": "New columns detected: {'hdi', 'total_theil', 'education_exp_pct_gdp', 'mmr', 'SL.UEM.TOTL.FE.ZS', 'BCA', 'Govt_Net_Lending_Pct_GDP', 'NY.GDP.MKTP.CD', 'Current_Account_Pct_GDP', 'GDP_PPP_Per_Capita_USD', 'DT.DOD.DECT.GN.ZS', 'SI.POV.DDAY', 'Reserves_ARA', 'SE.SEC.NENR', 'SE.PRM.NENR', 'mobile_subscriptions_per_100', 'lfpr_f', 'SP.DYN.TFRT.IN', 'life_expectancy', 'NY.GNP.PCAP.CD', 'Real_GDP_Growth_Pct', 'Economic_Resilience_Score', 'literacy-rate', 'hdi_m', 'safe_drinking_water_pct', 'NY.GDP.MKTP.KD', 'DT.DOD.DECT.CD', 'BN.CAB.XOKA.CD', 'SE.XPD.TOTL.GD.ZS', 'unemployment_pct', 'PCPIPCH', 'd', 'gni_pc_f', 'ihdi', 'volatilite', 'gdp_growth_pct', 'literacy_adult_pct', 'ineq_edu', 'GC.REV.XGRT.GD.ZS', 'PCPIEPCH', 'co2-emissions-per-capita', 'GGXWDN_G01_GDP_PT', 'SP.POP.TOTL', 'GGCBP_G01_PGDP_PT', 'Export_Volume_Growth_Pct', 'GII_TC', 'NE.TRD.GNFS.ZS', 'FR.INR.RINR', 'poverty_215_pct', 'PPPPC', 'SP.URB.TOTL.IN.ZS', 'EG.USE.ELEC.KH.PC', 'GDP', 'mys', 'gdp_per_capita_usd', 'gdi_group', 'IT.NET.USER.ZS', 'enrollment_secondary_pct', 'urban_population_pct', 'PPPSH', 'ST.INT.TVLR.CD', 'NGDPDPC', 'freshwater_withdrawal_pct', 'gnipc', 'energy_use_per_capita', 'population_growth_pct', 'LUR', 'PPPGDP', 'Reserves_STD', 'Current_Account_Bal_USD_Bn', 'AG.LND.FRST.ZS', 'abr', 'Govt_Gross_Debt_Pct_GDP', 'SL.UEM.TOTL.ZS', 'SP.POP.TOTL.FE.ZS', 'SP.DYN.CBRT.IN', 'GGCB_G01_PGDP_PT', 'enrollment_tertiary_pct', 'internet_users_pct', 'unemployment-rate', 'le', 'gov_debt_pct_gdp', 'lfpr_m', 'fdi_inflows_pct_gdp', 'renewable-share-energy', 'Unemployment_Rate_Pct', 'NV.IND.MANF.ZS', 'eys_f', 'mys_m', 'ie', 'agricultural_land_pct', 'NV.AGR.TOTL.ZS', 'ST.INT.ARVL', 'phdi', 'GGR_G01_GDP_PT', 'GDP_Nominal_USD_Bn', 'le_m', 'eys', 'rankdiff_hdi_phdi', 'mys_f', 'FP.CPI.TOTL.ZG', 'gni_pc_m', 'SI.POV.NAHC', 'SP.DYN.IMRT.IN', 'se_f', 'hdi_f', 'SL.IND.EMPL.ZS', 'SP.DYN.CDRT.IN', 'rltir', 'FM.LBL.BMNY.ZG', 'SP.POP.1564.TO.ZS', 'GGXCNL_NGDP', 'NY.GDP.PCAP.KD.ZG', 'food_production_index', 'prim_exp', 'SI.POV.GINI', 'manufacturing_pct_gdp', 'NV.SRV.TOTL.ZS', 'NY.GDP.MKTP.KD.ZG', 'AG.LND.AGRI.ZS', 'rev', 'exp', 'LP', 'GDP_Growth_Momentum_3Y', 'pr_m', 'diff_hdi_phdi', 'inflation_cpi_pct', 'GGXWDG_NGDP', 'rgc', 'gii', 'SP.DYN.LE00.IN', 'BX.KLT.DINV.CD.WD', 'PA.NUS.FCRF', 'NGDPD', 'basic_sanitation_pct', 'NV.IND.TOTL.ZS', 'electricity_access_pct', 'NY.GDP.DEFL.KD.ZG', 'G_XWDG_G01_GDP_PT', 'gii_rank', 'trade_pct_gdp', 'EG.FEC.RNEW.ZS', 'BN.CAB.XOKA.GD.ZS', 'health_exp_pct_gdp', 'BCA_NGDPD', 'SL.UEM.TOTL.MA.ZS', 'EN.POP.SLUM.UR.ZS', 'Govt_Revenue_Pct_GDP', 'SL.TLF.TOTL.FE.ZS', 'G_X_G01_GDP_PT', 'pb', 'IT.NET.BBND.P2', 'EG.ELC.ACCS.ZS', 'under5_mortality', 'GC.XPN.TOTL.GD.ZS', 'GC.DOD.TOTL.GD.ZS', 'gini_index', 'MS.MIL.XPND.GD.ZS', 'le_f', 'gdp_usd', 'NY.GDP.PCAP.CD', 'hdi_rank', 'NY.GSR.NFCY.CD', 'regime', 'BX.TRF.CURR.CD', 'ineq_inc', 'se_m', 'SL.SRV.EMPL.ZS', 'fertility_rate', 'female_labor_participation_pct', 'prix_moyen', 'SP.POP.65UP.TO.ZS', 'Reserves_M', 'NY.ADJ.AEDU.GN.ZS', 'eys_m', 'share-of-population-in-extreme-poverty', 'gross-enrollment-ratio-in-secondary-education', 'SH.XPD.CHEX.GD.ZS', 'GDI_TC', 'Import_Volume_Growth_Pct', 'SL.TLF.ACTI.ZS', 'GDP_PPP_USD_Bn', 'coef_ineq', 'population', 'mf', 'GDP_Per_Capita_USD', 'PPPEX', 'SL.AGR.EMPL.ZS', 'NE.IMP.GNFS.CD', 'NGDP_RPCH', 'co2_prod', 'ST.INT.DPRT', 'AI_PI', 'life-expectancy-at-birth', 'loss', 'ineq_le', 'pr_f', 'human-development-index', 'enrollment_primary_pct', 'EG.USE.PCAP.KG.OE', 'inflation_gdp_deflator_pct', 'child-mortality-rate', 'Population_Mn', 'Real_Purchasing_Power_Growth', 'Inflation_CPI_Pct', 'gdi', 'FB.AST.NPER.ZS', 'FR.INR.LEND', 'FS.AST.PRVT.GD.ZS', 'NE.EXP.GNFS.CD', 'GGXONLB_G01_GDP_PT', 'gni_per_capita_usd'}",
+      "details": {
+        "added": [
+          "hdi",
+          "total_theil",
+          "education_exp_pct_gdp",
+          "mmr",
+          "SL.UEM.TOTL.FE.ZS",
+          "BCA",
+          "Govt_Net_Lending_Pct_GDP",
+          "NY.GDP.MKTP.CD",
+          "Current_Account_Pct_GDP",
+          "GDP_PPP_Per_Capita_USD",
+          "DT.DOD.DECT.GN.ZS",
+          "SI.POV.DDAY",
+          "Reserves_ARA",
+          "SE.SEC.NENR",
+          "SE.PRM.NENR",
+          "mobile_subscriptions_per_100",
+          "lfpr_f",
+          "SP.DYN.TFRT.IN",
+          "life_expectancy",
+          "NY.GNP.PCAP.CD",
+          "Real_GDP_Growth_Pct",
+          "Economic_Resilience_Score",
+          "literacy-rate",
+          "hdi_m",
+          "safe_drinking_water_pct",
+          "NY.GDP.MKTP.KD",
+          "DT.DOD.DECT.CD",
+          "BN.CAB.XOKA.CD",
+          "SE.XPD.TOTL.GD.ZS",
+          "unemployment_pct",
+          "PCPIPCH",
+          "d",
+          "gni_pc_f",
+          "ihdi",
+          "volatilite",
+          "gdp_growth_pct",
+          "literacy_adult_pct",
+          "ineq_edu",
+          "GC.REV.XGRT.GD.ZS",
+          "PCPIEPCH",
+          "co2-emissions-per-capita",
+          "GGXWDN_G01_GDP_PT",
+          "SP.POP.TOTL",
+          "GGCBP_G01_PGDP_PT",
+          "Export_Volume_Growth_Pct",
+          "GII_TC",
+          "NE.TRD.GNFS.ZS",
+          "FR.INR.RINR",
+          "poverty_215_pct",
+          "PPPPC",
+          "SP.URB.TOTL.IN.ZS",
+          "EG.USE.ELEC.KH.PC",
+          "GDP",
+          "mys",
+          "gdp_per_capita_usd",
+          "gdi_group",
+          "IT.NET.USER.ZS",
+          "enrollment_secondary_pct",
+          "urban_population_pct",
+          "PPPSH",
+          "ST.INT.TVLR.CD",
+          "NGDPDPC",
+          "freshwater_withdrawal_pct",
+          "gnipc",
+          "energy_use_per_capita",
+          "population_growth_pct",
+          "LUR",
+          "PPPGDP",
+          "Reserves_STD",
+          "Current_Account_Bal_USD_Bn",
+          "AG.LND.FRST.ZS",
+          "abr",
+          "Govt_Gross_Debt_Pct_GDP",
+          "SL.UEM.TOTL.ZS",
+          "SP.POP.TOTL.FE.ZS",
+          "SP.DYN.CBRT.IN",
+          "GGCB_G01_PGDP_PT",
+          "enrollment_tertiary_pct",
+          "internet_users_pct",
+          "unemployment-rate",
+          "le",
+          "gov_debt_pct_gdp",
+          "lfpr_m",
+          "fdi_inflows_pct_gdp",
+          "renewable-share-energy",
+          "Unemployment_Rate_Pct",
+          "NV.IND.MANF.ZS",
+          "eys_f",
+          "mys_m",
+          "ie",
+          "agricultural_land_pct",
+          "NV.AGR.TOTL.ZS",
+          "ST.INT.ARVL",
+          "phdi",
+          "GGR_G01_GDP_PT",
+          "GDP_Nominal_USD_Bn",
+          "le_m",
+          "eys",
+          "rankdiff_hdi_phdi",
+          "mys_f",
+          "FP.CPI.TOTL.ZG",
+          "gni_pc_m",
+          "SI.POV.NAHC",
+          "SP.DYN.IMRT.IN",
+          "se_f",
+          "hdi_f",
+          "SL.IND.EMPL.ZS",
+          "SP.DYN.CDRT.IN",
+          "rltir",
+          "FM.LBL.BMNY.ZG",
+          "SP.POP.1564.TO.ZS",
+          "GGXCNL_NGDP",
+          "NY.GDP.PCAP.KD.ZG",
+          "food_production_index",
+          "prim_exp",
+          "SI.POV.GINI",
+          "manufacturing_pct_gdp",
+          "NV.SRV.TOTL.ZS",
+          "NY.GDP.MKTP.KD.ZG",
+          "AG.LND.AGRI.ZS",
+          "rev",
+          "exp",
+          "LP",
+          "GDP_Growth_Momentum_3Y",
+          "pr_m",
+          "diff_hdi_phdi",
+          "inflation_cpi_pct",
+          "GGXWDG_NGDP",
+          "rgc",
+          "gii",
+          "SP.DYN.LE00.IN",
+          "BX.KLT.DINV.CD.WD",
+          "PA.NUS.FCRF",
+          "NGDPD",
+          "basic_sanitation_pct",
+          "NV.IND.TOTL.ZS",
+          "electricity_access_pct",
+          "NY.GDP.DEFL.KD.ZG",
+          "G_XWDG_G01_GDP_PT",
+          "gii_rank",
+          "trade_pct_gdp",
+          "EG.FEC.RNEW.ZS",
+          "BN.CAB.XOKA.GD.ZS",
+          "health_exp_pct_gdp",
+          "BCA_NGDPD",
+          "SL.UEM.TOTL.MA.ZS",
+          "EN.POP.SLUM.UR.ZS",
+          "Govt_Revenue_Pct_GDP",
+          "SL.TLF.TOTL.FE.ZS",
+          "G_X_G01_GDP_PT",
+          "pb",
+          "IT.NET.BBND.P2",
+          "EG.ELC.ACCS.ZS",
+          "under5_mortality",
+          "GC.XPN.TOTL.GD.ZS",
+          "GC.DOD.TOTL.GD.ZS",
+          "gini_index",
+          "MS.MIL.XPND.GD.ZS",
+          "le_f",
+          "gdp_usd",
+          "NY.GDP.PCAP.CD",
+          "hdi_rank",
+          "NY.GSR.NFCY.CD",
+          "regime",
+          "BX.TRF.CURR.CD",
+          "ineq_inc",
+          "se_m",
+          "SL.SRV.EMPL.ZS",
+          "fertility_rate",
+          "female_labor_participation_pct",
+          "prix_moyen",
+          "SP.POP.65UP.TO.ZS",
+          "Reserves_M",
+          "NY.ADJ.AEDU.GN.ZS",
+          "eys_m",
+          "share-of-population-in-extreme-poverty",
+          "gross-enrollment-ratio-in-secondary-education",
+          "SH.XPD.CHEX.GD.ZS",
+          "GDI_TC",
+          "Import_Volume_Growth_Pct",
+          "SL.TLF.ACTI.ZS",
+          "GDP_PPP_USD_Bn",
+          "coef_ineq",
+          "population",
+          "mf",
+          "GDP_Per_Capita_USD",
+          "PPPEX",
+          "SL.AGR.EMPL.ZS",
+          "NE.IMP.GNFS.CD",
+          "NGDP_RPCH",
+          "co2_prod",
+          "ST.INT.DPRT",
+          "AI_PI",
+          "life-expectancy-at-birth",
+          "loss",
+          "ineq_le",
+          "pr_f",
+          "human-development-index",
+          "enrollment_primary_pct",
+          "EG.USE.PCAP.KG.OE",
+          "inflation_gdp_deflator_pct",
+          "child-mortality-rate",
+          "Population_Mn",
+          "Real_Purchasing_Power_Growth",
+          "Inflation_CPI_Pct",
+          "gdi",
+          "FB.AST.NPER.ZS",
+          "FR.INR.LEND",
+          "FS.AST.PRVT.GD.ZS",
+          "NE.EXP.GNFS.CD",
+          "GGXONLB_G01_GDP_PT",
+          "gni_per_capita_usd"
+        ]
+      },
+      "timestamp": "2026-08-19T17:23:12.196793"
+    }
+  ]
+}

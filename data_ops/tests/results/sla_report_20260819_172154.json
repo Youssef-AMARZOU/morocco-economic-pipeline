@@ -1,0 +1,40 @@
+{
+  "pipeline": "morocco-economic-pipeline",
+  "timestamp": "2026-08-19T17:21:54.186751",
+  "freshness": {
+    "total": 5,
+    "passed": 0,
+    "details": [
+      {
+        "table": "bank_prices",
+        "sla": "critical",
+        "status": "MISSING"
+      },
+      {
+        "table": "indicators_clean",
+        "sla": "critical",
+        "status": "MISSING"
+      },
+      {
+        "table": "master_dataset",
+        "sla": "standard",
+        "status": "MISSING"
+      },
+      {
+        "table": "benchmark_morocco",
+        "sla": "standard",
+        "status": "MISSING"
+      },
+      {
+        "table": "dim_indicators",
+        "sla": "batch",
+        "status": "MISSING"
+      }
+    ]
+  },
+  "volume": {
+    "total": 0,
+    "passed": 0,
+    "details": []
+  }
+}
