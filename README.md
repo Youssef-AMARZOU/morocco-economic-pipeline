@@ -153,7 +153,7 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 ![DL Timeline](kaggle_kernel/out/dl_timeline.png)
 > **PIB predit vs reel dans le temps.** Le modele suit correctly l'evolution historique du PIB (vert = train, rouge = test, bleu = reel). Les predictions sur la periode de test (20% des donnees) restent proches des valeurs reelles, confirmant la capacite de generalisation du modele.
 
-### 8. Benchmark
+### 9. Benchmark
 ![Benchmark](kaggle_kernel/out/bench.png)
 > **Benchmark: Maroc vs Region/Monde.** Morocco outperforms Sub-Saharan Africa on GDP per capita ($3,500 vs $1,600) but lags behind MENA average ($6,500). Morocco ranks 2nd in North Africa for FDI inflows. Healthcare spending (3.5% GDP) is below WHO recommended 5%. Education spending (5.8% GDP) is regional leader.
 
