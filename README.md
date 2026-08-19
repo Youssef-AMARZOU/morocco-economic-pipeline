@@ -127,6 +127,32 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 ![PCA](kaggle_kernel/out/pca.png)
 > **Analyse en Composantes Principales.** PCA reduces 40+ indicators to ~8 components explaining 90% of variance. PC1 captures overall economic development (GDP, trade, investment). PC2 captures social indicators (education, health). This dimensionality reduction improves ML model efficiency.
 
+### 8. Deep Learning
+
+#### Architecture du modele
+![DL Architecture](kaggle_kernel/out/dl_architecture.png)
+> **Architecture du reseau de neurones (MLPRegressor).** 4 couches cachees (128-64-32-16 neurones) avec activation ReLU. Entree: 16 indicateurs macroeconomiques. Sortie: PIB en USD. Optimiseur Adam avec early stopping pour eviter le surapprentissage.
+
+#### Courbe d'entrainement
+![DL Training](kaggle_kernel/out/dl_training.png)
+> **Courbe de loss pendant l'entrainement.** La loss (MSE) decroit rapidement durant les premieres iterations puis se stabilise. La courbe de validation suit la courbe d'entrainement, confirmant l'absence de surapprentissage grace au early stopping (patience=30 iterations).
+
+#### Prediction vs Realite
+![DL Pred](kaggle_kernel/out/dl_pred_vs_actual.png)
+> **Prediction vs Realite.** Les points se concentrent autour de la droite y=x, indiquant une bonne calibration. Le modele capture correctement l'evolution du PIB sur toute la gamme de valeurs ($10B - $150B).
+
+#### Analyse des residus
+![DL Residuals](kaggle_kernel/out/dl_residuals.png)
+> **Analyse des residus.** Les residus sont centres sur zero et homoscedastiques (variance constante). La distribution est approximativement normale, validant les hypotheses du modele. Aucun biais systematique detecte.
+
+#### Importance des variables
+![DL Features](kaggle_kernel/out/dl_feature_importance.png)
+> **Importance des variables (poids 1ere couche).** Les variables les plus influentes sont le PIB per capita, l'inflation et le taux de chomage. Les indicateurs sociaux (esperance de vie, education) contribuent egalement significativement. Cette information guide la selection de variables pour les modeles futurs.
+
+#### PIB predit dans le temps
+![DL Timeline](kaggle_kernel/out/dl_timeline.png)
+> **PIB predit vs reel dans le temps.** Le modele suit correctly l'evolution historique du PIB (vert = train, rouge = test, bleu = reel). Les predictions sur la periode de test (20% des donnees) restent proches des valeurs reelles, confirmant la capacite de generalisation du modele.
+
 ### 8. Benchmark
 ![Benchmark](kaggle_kernel/out/bench.png)
 > **Benchmark: Maroc vs Region/Monde.** Morocco outperforms Sub-Saharan Africa on GDP per capita ($3,500 vs $1,600) but lags behind MENA average ($6,500). Morocco ranks 2nd in North Africa for FDI inflows. Healthcare spending (3.5% GDP) is below WHO recommended 5%. Education spending (5.8% GDP) is regional leader.
