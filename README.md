@@ -149,90 +149,79 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 ![PCA](kaggle_kernel/out/pca.png)
 > **Analyse en Composantes Principales.** PCA reduces 40+ indicators to ~8 components explaining 90% of variance. PC1 captures overall economic development (GDP, trade, investment). PC2 captures social indicators (education, health). This dimensionality reduction improves ML model efficiency.
 
-### 8. Deep Learning (Reseau de Neurones)
+### 8. Deep Learning / Machine Learning (Modeles de prediction)
 
 #### Qu'est-ce que le Deep Learning dans ce pipeline ?
-Le modele Deep Learning utilise un **reseau de neurones artificiels (MLPRegressor)** pour predire le PIB du Maroc a partir de 16 indicateurs macroeconomiques. Contrairement aux modeles lineaires (Lasso, ARIMA), le DL peut capturer les **relations non-lineaires** entre les variables economiques.
+Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 indicateurs macroeconomiques. La cible est la croissance (stationnaire) et non le PIB absolu (non-stationnaire), ce qui est plus realiste pour un modele statistique.
+
+> **Note importante :** Avec seulement 54 annnees de donnees, les modeles ML/DL ont des performances limitees. Le PIB reel du Maroc est principalement determine par des facteurs structurels (demographie, investissements, politique monetaire) difficilement capturables par des indicateurs annuels. Ces modeles sont indicatifs mais pas des substitutes a des modeles economiques structurels.
 
 #### Architecture du modele
 ![DL Architecture](kaggle_kernel/out/dl_architecture.png)
-> **Architecture du reseau de neurones (MLPRegressor).** 
 
-| Couche | Neurones | Role |
-|--------|----------|------|
-| Entree | 16 | Les 16 indicateurs macroeconomiques (inflation, chomage, PIB/hab, etc.) |
-| Cachee 1 | 128 | Extraction des patterns complexes (ReLU) |
-| Cachee 2 | 64 | Abstraction des relations non-lineaires |
-| Cachee 3 | 32 | Compression des features |
-| Cachee 4 | 16 | Representation finale |
-| Sortie | 1 | Prediction du PIB en USD |
+| Parametre | Valeur |
+|-----------|--------|
+| Modele | RandomForest / Ridge / GBR / DL |
+| Cible | Croissance du PIB reel (%) |
+| Features | 15 indicateurs macroeconomiques |
+| Split | 80% train (1970-2012), 20% test (2013-2023) |
+| Regularisation | L2 (alpha=0.1) |
 
-**Parametres cles :**
-- **Activation ReLU** : Evite le probleme du gradient disparu
-- **Optimiseur Adam** : Ajustement adaptatif du learning rate
-- **Early stopping** : Arrete l'entrainement quand la validation ne s'ameliore plus (patience=30)
-- **Regularisation L2** : Evite le surapprentissage
+**Pourquoi la croissance et non le PIB absolu ?**
+- Le PIB absolu croit exponentiellement (non-stationnaire)
+- Les modeles ML preferent les cibles stationnaires
+- La croissance est plus facile a predire car elle fluctue autour de 3-5%
 
 #### Courbe d'entrainement
 ![DL Training](kaggle_kernel/out/dl_training.png)
-> **Courbe de loss pendant l'entrainement.** La loss (MSE) decroit rapidement durant les premieres iterations puis se stabilise. La courbe de validation suit la courbe d'entrainement, confirmant l'absence de surapprentissage grace au early stopping (patience=30 iterations).
+> **Evolution du R2 pendant l'entrainement.** Le R2 train augmente avec le nombre d'arbres tandis que le R2 test se stabilise. L'ecart entre les deux courbes indique le degree de surapprentissage.
 
-| Phase | Iterations | Comportement |
-|-------|------------|--------------|
-| Apprentissage rapide | 0-50 | Loss chute de 100% a 10% |
-| Convergence | 50-150 | Loss se stabilise a ~5% |
-| Early stop | 150+ | Validation plateau, arret automatique |
+| Phase | Comportement |
+|-------|--------------|
+| 0-20 arbres | Apprentissage rapide, R2 train = 0 a 0.3 |
+| 20-50 arbres | Convergence, R2 train ~0.5 |
+| 50+ arbres | Plateau, R2 test stagne |
 
 #### Prediction vs Realite
 ![DL Pred](kaggle_kernel/out/dl_pred_vs_actual.png)
-> **Prediction vs Realite.** 
 
 | Metrique | Valeur | Interpretation |
 |----------|--------|----------------|
-| R2 Train | ~0.98 | Le modele explique 98% de la variance sur les donnees d'entrainement |
-| R2 Test | ~0.95 | Le modele generalise bien sur les donnees inedites |
-| RMSE | ~3-5B USD | Erreur moyenne de 3-5 milliards sur un PIB de 100-140B |
-| MAE | ~2-4B USD | Erreur absolue moyenne |
+| Train R2 | ~0.54 | Le modele explique 54% de la variance en entrainement |
+| Test R2 | ~-0.33 | Le modele ne generalise pas sur les donnees recentes |
+| Gap | ~0.87 | Surapprentissage significatif |
+| RMSE | ~4.2% | Erreur moyenne de 4 points de croissance |
 
-**Comment lire le graphique :**
-- **Points verts** = donnees d'entrainement (80% du jeu)
-- **Points rouges** = donnees de test (20% reserve)
-- **Ligne noire tiree** = prediction parfaite (y=x)
-- **Ligne bleue** = regression reelle sur les donnees test
-- Plus les points sont proches de la ligne noire, meilleure est la prediction
+**Interpretation honnete :**
+- Le modele apprend bien les periodes connues (train R2 > 0.5)
+- Mais il ne predit PAS les crises recentes (COVID 2020, crise 2015)
+- R2 test negatif = pire que de predire la moyenne
+- **C'est normal** : la croissance du PIB est influencee par des evenements imprevisibles (secheresse, crise mondiale, politiques)
 
 #### Analyse des residus
 ![DL Residuals](kaggle_kernel/out/dl_residuals.png)
-> **Analyse des residus.** Les residus sont centres sur zero et homoscedastiques (variance constante). La distribution est approximativement normale, validant les hypotheses du modele. Aucun biais systematique detecte.
-
-**Que signifient les residus ?**
-- Residu = PIB reel - PIB predit
-- Si residu > 0 : le modele sous-estime
-- Si residu < 0 : le modele surestime
-- Distribution normale centree sur 0 = modele fiable
+> **Analyse des residus.** Les residus montrent que le modele sous-estime les fortes croissances et surestime les faibles. La distribution n'est pas parfaitement normale, indiquant des periodes non capturees.
 
 #### Importance des variables
 ![DL Features](kaggle_kernel/out/dl_feature_importance.png)
-> **Importance des variables (poids 1ere couche).**
 
-| Rang | Variable | Importance | Explication |
-|------|----------|------------|-------------|
-| 1 | PIB per capita | Tres elevee | Variable la plus informative pour predire le PIB total |
-| 2 | Inflation | Elevee | Reflete la stabilite monetaire et la politique economique |
-| 3 | Taux de chomage | Elevee | Indicateur de la sante de l'economie |
-| 4 | Esperance de vie | Moyenne | Proxy du developpement humain |
-| 5 | Education | Moyenne | Investissement dans le capital humain |
-| 6 | Urbanisation | Faible | Moins informatif pour le PIB que les variables macro |
+| Rang | Variable | Importance |
+|------|----------|------------|
+| 1 | PIB per capita | Tres elevee |
+| 2 | Inflation | Elevee |
+| 3 | Population | Elevee |
+| 4 | Fertilite | Moyenne |
+| 5 | Urbanisation | Moyenne |
 
-#### PIB predit dans le temps
+#### Croissance predite dans le temps
 ![DL Timeline](kaggle_kernel/out/dl_timeline.png)
-> **PIB predit vs reel dans le temps.** Le modele suit correctement l'evolution historique du PIB. Les predictions sur la periode de test (20% des donnees) restent proches des valeurs reelles, confirmant la capacite de generalisation du modele.
+> **Croissance predite vs reelle.** Le modele suit les tendances generales mais manque les pics et creux (crises, rebonds). L'ecart train/test est visible sur la periode 2013-2023.
 
-**Resume du modele Deep Learning :**
-- **Precision** : R2 > 0.95 sur les donnees de test
-- **Fiabilite** : Pas de surapprentissage (early stopping)
-- **Interpretabilite** : Les variables macro dominent (pas de "boite noire")
-- **Usage** : Projection du PIB sur 5-10 ans avec intervalles de confiance
+**Resume du modele ML :**
+- **Precision** : R2 train > 0.5 (correct), R2 test < 0 (limitation des donnees)
+- **Usage** : indicateur qualitatif, pas de forecast fiable
+- **Amelioration possible** : plus de donnees (mensuelles/trimestrielles), modeles structurels (VAR, SVAR)
+- **Honnomete** : avec 54 points, aucun ML ne peut predire la croissance du PIB fiablement
 
 ### 9. Benchmark
 ![Benchmark](kaggle_kernel/out/bench.png)
