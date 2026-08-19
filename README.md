@@ -157,6 +157,64 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 ![Benchmark](kaggle_kernel/out/bench.png)
 > **Benchmark: Maroc vs Region/Monde.** Morocco outperforms Sub-Saharan Africa on GDP per capita ($3,500 vs $1,600) but lags behind MENA average ($6,500). Morocco ranks 2nd in North Africa for FDI inflows. Healthcare spending (3.5% GDP) is below WHO recommended 5%. Education spending (5.8% GDP) is regional leader.
 
+### 10. Domaines Specifiques
+
+#### Social - Pauvrete et Inegalite
+![Social Poverty](kaggle_kernel/out/social_poverty_gini.png)
+> **Pauvrete et Gini.** Le taux de pauvrete a baisse de 15% (2000) a 4% (2020). L'indice de Gini fluctue entre 0.39-0.46, avec des pics durant les annees de secheresse touchant le milieu rural.
+
+#### Social - Chomage par genre
+![Social Unemployment](kaggle_kernel/out/social_unemployment.png)
+> **Chomage par genre.** Le chomage masculin reste inferieur au feminin (8% vs 14%). L'ecart se reduit progressivement mais reste significatif, refletant les defis d'insertion professionnelle feminine.
+
+#### Social - Dynamique demographique
+![Social Population](kaggle_kernel/out/social_population.png)
+> **Dynamique demographique.** La population passe de 12M (1960) a 37M (2024). Le taux de fecondite chute de 7 a 2.2 enfants/femme. L'urbanisation atteint 65%, drivant la demande de logements et services.
+
+#### Social - Pauvrete : Reel vs Predit
+![Social Pred](kaggle_kernel/out/social_pred_pauvrete.png)
+> **Pauvrete predite par Random Forest.** Le modele suit correctement la tendance descendante de la pauvrete. Les predictions confirment la reduction continue sous l'effet des politiques publiques.
+
+#### Education - Taux d'inscription
+![Education Enrollment](kaggle_kernel/out/education_enrollment.png)
+> **Inscription par niveau.** L'inscription primaire atteint 99%, secondaire 65%, tertiaire 35%. La massification educationnelle progresse mais des disparites region persistent.
+
+#### Education - Alphabetisation et financement
+![Education Literacy](kaggle_kernel/out/education_literacy_spending.png)
+> **Alphabetisation et depenses.** Le taux d'alphabetisation passe de 40% (1980) a 75% (2024). Les depenses d'education restent stables a 5-6% du PIB, parmi les plus elevees d'Afrique.
+
+#### Education - Reel vs Predit
+![Education Pred](kaggle_kernel/out/education_pred.png)
+> **Education secondaire predite.** Le modele Random Forest predit correctement l'evolution de l'inscription secondaire, validant l'impact des investissements educationnels.
+
+#### Sante - Mortalite et esperance de vie
+![Sante Mortality](kaggle_kernel/out/sante_mortality.png)
+> **Sante: mortalite et esperance de vie.** L'esperance de vie passe de 52 ans (1960) a 77 ans (2024). La mortalite infantile chute de 150 a 18/1000. Les depenses de sante restent faibles (3.5% PIB).
+
+#### Sante - Reel vs Predit
+![Sante Pred](kaggle_kernel/out/sante_pred.png)
+> **Esperance de vie predite.** Le modele suit la tendance haussiere, confirmant l'amelioration continue des conditions sanitaires au Maroc.
+
+#### Bourse - Prix et volatilite
+![Bourse Prices](kaggle_kernel/out/bourse_prices.png)
+> **Bourse de Casablanca.** Le prix moyen des actions bancaires montre une tendance haussiere post-2015. La volatilite est elevee durant les crises (2008, 2020) mais se stabilise en periode normale.
+
+#### Bourse - Regimes
+![Bourse Regime](kaggle_kernel/out/bourse_regime.png)
+> **Regimes boursiers.** Classification en 3 regimes: haussier (vert), stable (bleu), baissier (rouge). Les periodes de baissent correspondent aux crises economiques mondiales.
+
+#### Bourse - Reel vs Predit
+![Bourse Pred](kaggle_kernel/out/bourse_pred.png)
+> **Prix boursier predit.** Le modele capture les tendances principales mais les pics de volatilite restent difficiles a predire, typique des marches financiers.
+
+#### Inflation et stabilite des prix
+![Taux Inflation](kaggle_kernel/out/taux_inflation.png)
+> **Inflation au Maroc.** L'inflation CPI se stabilise autour de 2-3% apres les annees 1990. La volatilite de l'inflation (ecart-type glissant) montre une convergence vers la stabilite monetaire.
+
+#### Inflation : Reel vs Predit
+![Taux Pred](kaggle_kernel/out/taux_pred.png)
+> **Inflation predite.** Le modele Random Forest predit correctement les phases d'inflation, utile pour la politique monetaire et les decisions d'investissement.
+
 ---
 
 ## Data Sources
