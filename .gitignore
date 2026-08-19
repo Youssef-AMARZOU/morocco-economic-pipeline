@@ -4,6 +4,8 @@
 *.db
 *.csv
 *.log
-*.png
 *.html
 .DS_Store
+
+# Allow pipeline output images
+!kaggle_kernel/out/*.png
