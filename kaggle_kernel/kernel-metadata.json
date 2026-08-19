@@ -1,0 +1,15 @@
+{
+  "id": "amarzouyoussef/maroc-pipeline-r",
+  "title": "Maroc Pipeline R",
+  "code_file": "maroc_pipeline.R",
+  "language": "r",
+  "kernel_type": "script",
+  "is_public": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "amarzouyoussef/economie-maroc-rasd"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

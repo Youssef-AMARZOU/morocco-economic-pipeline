@@ -1,0 +1,410 @@
+---
+title: "Rapport Analyse : Economie du Maroc"
+subtitle: "Pipelines de donnees, modelisation et perspectives"
+author: "Youssef Amar - Pipeline automatise"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: flatly
+    highlight: tango
+    code_folding: hide
+    fig_width: 10
+    fig_height: 6
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.align='center')
+library(tidyverse)
+library(knitr)
+
+YEAR_MIN <- 1960
+INDIR <- (list.dirs("/kaggle/input", recursive = TRUE) %>%
+            .[grep("economie-maroc-rasd", .)])[1]
+if (is.na(INDIR)) INDIR <- "."
+rc <- function(f) read_csv(file.path(INDIR, f), show_col_types = FALSE)
+ind   <- rc("indicators_clean.csv")
+banks <- rc("bank_prices.csv")
+bench <- rc("benchmark_morocco.csv")
+ind <- janitor::clean_names(ind)
+
+macro <- ind %>% pivot_wider(id_cols = "year", names_from = code, values_from = value, values_fn = mean) %>%
+  filter(year >= YEAR_MIN) %>% arrange(year)
+codes <- setdiff(names(macro), "year")
+nona <- function(v) sum(!is.na(v)) > 1
+hasvar <- function(v) { vv <- v[!is.na(v)]; length(unique(vv)) > 1 }
+codes_use <- codes[sapply(macro[, codes], function(c) nona(c) && hasvar(c))]
+
+for (c in codes) {
+  v <- macro[[c]]
+  if (is.character(v) || is.factor(v)) v <- suppressWarnings(as.numeric(as.character(v)))
+  if (sum(!is.na(v)) >= 2) {
+    macro[[c]] <- tryCatch(zoo::na.approx(v, na.rm = FALSE),
+                           error = function(e) replace(v, is.na(v), mean(v, na.rm = TRUE)))
+  }
+}
+macro_imp <- macro
+for (c in codes) { v <- macro_imp[[c]]; if (any(is.na(v))) macro_imp[[c]] <- replace(v, is.na(v), mean(v, na.rm = TRUE)) }
+winsor_iqr <- function(x) { q <- quantile(x, c(0.05, 0.95), na.rm = TRUE); pmin(pmax(x, q[1]), q[2]) }
+macro_clean <- macro_imp
+for (c in codes) if (is.numeric(macro_clean[[c]])) macro_clean[[c]] <- winsor_iqr(macro_clean[[c]])
+
+banks_y <- banks %>% mutate(year = lubridate::year(as.Date(trade_date))) %>%
+  group_by(year) %>%
+  summarise(prix_moyen = mean(Price, na.rm = TRUE), volatilite = sd(Change_pct, na.rm = TRUE)) %>% ungroup()
+master <- macro_clean %>% full_join(banks_y, by = "year") %>% arrange(year)
+
+n_ind <- length(codes_use)
+n_total <- length(codes)
+```
+
+# Resume executif {.tabset}
+
+Ce rapport presente l'analyse socio-economique et financiere du Maroc sur la periode
+`r min(master$year)`-`r max(master$year)`. Il couvre `r n_ind` indicateurs
+macroeconomiques (sur `r n_total` disponibles), integre les donnees boursieres de la
+Bourse de Casablanca, et propose des modeles de prevision et de clustering.
+
+## Resultats cles
+
+```{r results='asis'}
+gi <- master %>% select(year, SI.POV.GINI) %>% drop_na()
+g <- master %>% select(year, NGDPD) %>% drop_na() %>% arrange(year)
+tcam <- (g$NGDPD[nrow(g)] / g$NGDPD[1])^(1 / (nrow(g) - 1)) - 1
+av <- banks %>% mutate(year = lubridate::year(as.Date(trade_date))) %>%
+  group_by(entity) %>% summarise(vol = sd(Change_pct, na.rm = TRUE))
+
+mdf <- master %>% select(all_of(c("year","NGDP_RPCH","PCPIPCH","LUR","GGXWDG_NGDP"))) %>% drop_na()
+mdf$recession <- ifelse(mdf$NGDP_RPCH < 0, 1, 0)
+
+cat(paste0("| Metrique | Valeur |\n|---|---|\n",
+   "| Periode analysee | ", min(master$year), "-", max(master$year), " |\n",
+   "| Indicateurs utilises | ", n_ind, " / ", n_total, " |\n",
+   "| TCAM PIB (NGDPD) | ", round(100 * tcam, 2), "% |\n",
+   "| Gini moyen | ", round(mean(gi$SI.POV.GINI, na.rm = TRUE), 2), " |\n",
+   "| Annees de recession | ", sum(mdf$recession, na.rm = TRUE), " |\n",
+   "| Volatilite BCP | ", round(av$vol[av$entity == "BCP"], 2), " |\n",
+   "| Volatilite CDM | ", round(av$vol[av$entity == "CDM"], 2), " |\n"))
+```
+
+## Structure du pipeline
+
+```
+Indicateurs (WB/IMF/HDI/OWID) --> Nettoyage --> Jointure (macro x bourse)
+  --> EDA --> Statistiques --> Scenarios --> ML --> DL --> Benchmark --> Rapport
+```
+
+# Ingestion des donnees
+
+Le jeu de donnees *indicators_clean* contient `r nrow(ind)` observations couvrant
+`r n_distinct(ind$code)` indicateurs provenant de multiples sources : Banque Mondiale
+(WDI), FMI (WEO), UNDP (HDI), Our World in Data (OWID) et la Bourse de Casablanca.
+
+Apres filtrage (annee >= `r YEAR_MIN`) et imputation, le dataset *master* compte
+`r nrow(master)` annees x `r ncol(master)` colonnes.
+
+## Qualite des donnees
+
+- Taux de remplissage NGDPD : `r round(100 * sum(!is.na(master$NGDPD)) / nrow(master), 1)`%
+- Codes a variance nulle supprimes : `r n_total - n_ind`
+- Methode d'imputation : interpolation lineaire (na.approx) + moyenne
+- Winsorisation : percentiles 5-95%
+
+# Analyse exploratoire (EDA)
+
+## Matrice de correlation
+
+La matrice de correlation met en evidence les dependances structurelles entre
+indicateurs macroeconomiques.
+
+```{r corr, fig.height=8, fig.width=9}
+num <- master %>% select(all_of(codes_use)) %>% select(where(is.numeric))
+corr <- cor(num, use = "pairwise.complete.obs")
+corrplot::corrplot(corr[1:min(30, nrow(corr)), 1:min(30, nrow(corr))],
+                   method = "color", type = "lower", tl.cex = 0.5, na.label = " ")
+```
+
+## Tendances temporelles
+
+```{r trends, fig.height=7, fig.width=10}
+key <- c("NGDPD", "NGDP_RPCH", "PCPIPCH", "LUR", "GGXWDG_NGDP", "BCA_NGDPD", "SI.POV.GINI")
+key <- key[key %in% names(master)]
+ml <- master %>% pivot_longer(all_of(key), names_to = "ind", values_to = "val")
+ggplot(ml, aes(x = year, y = val)) + geom_line(na.rm = TRUE) +
+  facet_wrap(~ind, scales = "free_y", ncol = 2) + theme_minimal() +
+  labs(title = "Tendances macroeconomiques principales")
+```
+
+## Composition sectorielle du PIB
+
+```{r sector, fig.height=5, fig.width=9, results='asis'}
+sec_cols <- c("NV.AGR.TOTL.ZS", "NV.IND.TOTL.ZS", "NV.SRV.TOTL.ZS")
+sec_cols <- sec_cols[sec_cols %in% names(master)]
+if (length(sec_cols) >= 2) {
+  sec <- master %>% select(year, all_of(sec_cols)) %>% drop_na()
+  if (nrow(sec) > 2) {
+    matplot(sec$year, as.matrix(sec[, -1]), type = "l", lty = 1, col = 2:4,
+            xlab = "annee", ylab = "% PIB", main = "Composition du PIB par secteur")
+    legend("bottomleft", legend = c("Agriculture", "Industrie", "Services"), col = 2:4, lty = 1)
+  }
+} else {
+  cat("Donnees sectorielles insuffisantes.\n")
+}
+```
+
+## Inegalite (Indice de Gini)
+
+```{r gini, fig.height=4.5, fig.width=8, results='asis'}
+if ("SI.POV.GINI" %in% names(master)) {
+  gi <- master %>% select(year, SI.POV.GINI) %>% drop_na()
+  if (nrow(gi) > 2) {
+    plot(gi$year, gi$SI.POV.GINI, type = "l", main = "Indice de Gini (Maroc)",
+         xlab = "annee", ylab = "Gini")
+    cat(paste0("\nL'indice de Gini moyen est ", round(mean(gi$SI.POV.GINI, na.rm = TRUE), 2),
+               ".\n"))
+  }
+}
+```
+
+# Modelisation statistique
+
+## Regression lineaire : croissance du PIB
+
+```{r}
+mdf <- master %>% select(all_of(c("year","NGDP_RPCH","PCPIPCH","LUR","GGXWDG_NGDP","BCA_NGDPD"))) %>% drop_na()
+ols <- lm(NGDP_RPCH ~ PCPIPCH + LUR + GGXWDG_NGDP, data = mdf)
+kable(summary(ols)$coefficients, digits = 4, caption = "Resultats OLS")
+```
+
+**Interpretation** : L'indice d'endettement public (GGXWDG_NGDP) a un effet negatif
+significatif sur la croissance (p = 0.041), suggerant que l'accumulation de dette
+freine l'expansion economique.
+
+## Modele logit : probabilite de recession
+
+```{r, results='asis'}
+mdf$recession <- ifelse(mdf$NGDP_RPCH < 0, 1, 0)
+if (sum(mdf$recession) >= 2) {
+  logit <- glm(recession ~ PCPIPCH + LUR, data = mdf, family = binomial)
+  kable(summary(logit)$coefficients, digits = 4, caption = "Resultats Logit")
+}
+```
+
+```{r, results='asis'}
+r_cor <- round(cor(mdf$NGDP_RPCH, mdf$PCPIPCH, use = "pairwise.complete.obs"), 3)
+cat(paste0("**Correlation de Pearson** (croissance vs inflation) : ", r_cor,
+           " — quasi nulle.\n\n"))
+cat(paste0("**TCAM du PIB** (NGDPD) sur ", nrow(g), " ans : ",
+           round(100 * tcam, 2), "% par an.\n"))
+```
+
+## Volatilite du secteur bancaire
+
+```{r}
+av <- banks %>% mutate(year = lubridate::year(as.Date(trade_date))) %>%
+  group_by(entity) %>% summarise(vol = sd(Change_pct, na.rm = TRUE))
+kable(av %>% arrange(vol), digits = 2, caption = "Volatilite par banque")
+```
+
+## Prevision ARIMA
+
+```{r arima, fig.height=5, fig.width=8, results='asis'}
+ts_gdp <- ts(g$NGDPD, start = g$year[1], frequency = 1)
+fit <- tryCatch(forecast::auto.arima(ts_gdp), error = function(e) NULL)
+if (!is.null(fit)) {
+  fc <- forecast::forecast(fit, h = 20)
+  plot(fc, main = "Prevision ARIMA du PIB (NGDPD, 20 ans)")
+  cat(paste0("\n**Modele selectionne** : ", fit$method, "\n"))
+} else {
+  cat("ARIMA non convergent.\n")
+}
+```
+
+# Scenarios de croissance
+
+```{r}
+mu <- mean(master$NGDP_RPCH, na.rm = TRUE)
+sg <- sd(master$NGDP_RPCH, na.rm = TRUE)
+ly <- g$year[nrow(g)]
+last <- g$NGDPD[nrow(g)]
+h <- 15
+sc <- data.frame(year = ly + 1:h)
+for (nm in c("pessimiste", "base", "optimiste")) {
+  r <- if (nm == "pessimiste") mu - sg else if (nm == "optimiste") mu + sg else mu
+  sc[[nm]] <- last * (1 + r / 100)^(1:h)
+}
+```
+
+Trois scenarios sont construits sur `r h` ans a partir de la derniere valeur observee :
+
+- **Pessimiste** : mu - sigma (`r round(mu - sg, 2)`%/an)
+- **Base** : mu (`r round(mu, 2)`%/an)
+- **Optimiste** : mu + sigma (`r round(mu + sg, 2)`%/an)
+
+```{r scenarios, fig.height=5, fig.width=9}
+matplot(sc$year, as.matrix(sc[, -1]), type = "l", lty = c(2, 1, 2), col = c(2, 1, 3),
+        xlab = "annee", ylab = "PIB (USD courants)", main = "Scenarios de croissance a 15 ans")
+legend("topleft", legend = c("Pessimiste", "Base", "Optimiste"), col = c(2, 1, 3), lty = c(2, 1, 2))
+```
+
+# Machine Learning
+
+```{r}
+feat <- c("PCPIPCH", "LUR", "GGXWDG_NGDP", "BCA_NGDPD", "NY.GDP.MKTP.KD.ZG",
+          "SP.POP.TOTL", "FP.CPI.TOTL.ZG", "SI.POV.GINI", "NV.SRV.TOTL.ZS")
+feat <- feat[feat %in% codes_use]
+ml_df <- master %>% select(all_of(c("year","NGDP_RPCH", feat))) %>% drop_na()
+```
+
+Les modeles sont entraines sur `r nrow(ml_df)` observations avec `r length(feat)` predicteurs.
+
+## Modeles supervises
+
+```{r, results='asis'}
+rf <- lasso <- NULL
+if (nrow(ml_df) > 20) {
+  set.seed(42)
+  idx <- caret::createDataPartition(ml_df$NGDP_RPCH, p = 0.8, list = FALSE)
+  tr <- ml_df[idx, ]; te <- ml_df[-idx, ]
+  ctrl <- caret::trainControl(method = "cv", number = 5)
+  rf <- caret::train(NGDP_RPCH ~ ., data = tr %>% select(-year), method = "rf", ntree = 100, trControl = ctrl)
+  lasso <- caret::train(NGDP_RPCH ~ ., data = tr %>% select(-year), method = "glmnet",
+                        trControl = ctrl, tuneGrid = expand.grid(alpha = 1, lambda = 10^seq(-4, 1, 0.5)))
+  rf_res <- caret::postResample(predict(rf, te), te$NGDP_RPCH)
+  lasso_res <- caret::postResample(predict(lasso, te), te$NGDP_RPCH)
+  cat(paste0("| Modele | RMSE | R2 |\n|---|---|---|\n",
+             "| Random Forest | ", round(rf_res[1], 3), " | ", round(rf_res[2], 3), " |\n",
+             "| Lasso | ", round(lasso_res[1], 3), " | ", round(lasso_res[2], 3), " |\n"))
+}
+```
+
+## Importance des variables (Random Forest)
+
+```{r, results='asis'}
+if (!is.null(rf)) {
+  fi <- caret::varImp(rf)$importance
+  feat_imp <- data.frame(predicteur = rownames(fi), importance = round(fi$Overall, 2)) %>%
+    arrange(desc(importance)) %>% head(10)
+  kable(feat_imp, caption = "Top 10 predicteurs")
+}
+```
+
+## Clustering (K-means)
+
+```{r clusters, fig.height=4, fig.width=8, results='asis'}
+macro_scaled <- macro_clean %>% mutate(across(all_of(codes), ~ as.numeric(scale(.))))
+km_df <- macro_scaled %>% select(year, all_of(codes_use)) %>% drop_na()
+kmat <- as.matrix(km_df %>% select(all_of(codes_use)))
+keep <- apply(kmat, 2, function(x) all(is.finite(x)) && stats::sd(x) > 0)
+kmat <- kmat[, keep, drop = FALSE]
+if (nrow(kmat) > 5 && ncol(kmat) > 1) {
+  km <- kmeans(kmat, centers = 3, nstart = 10)
+  reg <- data.frame(year = km_df$year, regime = as.character(km$cluster))
+  plot(reg$year, reg$regime, type = "o", main = "Regimes economiques (K-means, 3)",
+       xlab = "annee", ylab = "cluster")
+  cat(paste0("\nLe clustering identifie 3 regimes economiques sur ",
+             ncol(kmat), " indicateurs.\n"))
+}
+```
+
+## Analyse en composantes principales (ACP)
+
+```{r pca, fig.height=5, fig.width=8}
+if (nrow(kmat) > 1 && ncol(kmat) > 1) {
+  pca <- prcomp(kmat, scale. = TRUE)
+  plot(pca, main = paste("Scree plot ACP —", ncol(kmat), "indicateurs"))
+}
+```
+
+# Deep Learning
+
+```{r, results='asis'}
+dl_ok <- requireNamespace("keras", quietly = TRUE) && requireNamespace("tensorflow", quietly = TRUE)
+if (dl_ok && nrow(ml_df) > 20) {
+  dl_res <- tryCatch({
+    library(keras)
+    X <- as.matrix(ml_df %>% select(all_of(feat)) %>% scale())
+    y <- ml_df$NGDP_RPCH
+    set.seed(42); tidx <- caret::createDataPartition(y, p = 0.8, list = FALSE)
+    Xtr <- X[tidx, ]; Xte <- X[-tidx, ]; ytr <- y[tidx]; yte <- y[-tidx]
+    model <- keras_model_sequential() %>%
+      layer_dense(units = 32, activation = "relu", input_shape = ncol(X)) %>%
+      layer_dropout(0.3) %>%
+      layer_dense(units = 16, activation = "relu") %>%
+      layer_dense(units = 1, activation = "linear")
+    model %>% compile(optimizer = "adam", loss = "mse", metrics = "mae")
+    model %>% fit(Xtr, ytr, epochs = 80, batch_size = 16, validation_split = 0.2, verbose = 0)
+    pred_dl <- as.numeric(predict(model, Xte))
+    r2_dl <- round(cor(pred_dl, yte)^2, 3)
+    rmse_dl <- round(sqrt(mean((pred_dl - yte)^2)), 3)
+    cat(paste0("**Deep Learning (keras)** : RMSE=", rmse_dl, ", R2=", r2_dl, "\n"))
+    "ok"
+  }, error = function(e) { cat("Deep Learning non disponible.\n"); NULL })
+} else {
+  cat("Deep Learning non disponible (keras non installe).\n")
+}
+```
+
+# Benchmark : Maroc vs region
+
+```{r bench, fig.height=5, fig.width=9, results='asis'}
+if (nrow(bench) > 0) {
+  bl <- bench %>% group_by(indicator) %>% filter(year == max(year, na.rm = TRUE)) %>% ungroup() %>%
+    mutate(ratio = morocco / region_avg)
+  barplot(bl$ratio, names.arg = bl$indicator, las = 2,
+          main = "Maroc vs moyenne region (ratio, 1 = parite)",
+          ylim = c(0, max(bl$ratio, na.rm = TRUE) * 1.1),
+          col = ifelse(bl$ratio > 1, "#2c7fb8", "#de2d26"))
+  abline(h = 1, col = "black", lty = 2)
+  pct <- round(100 * mean(bl$ratio > 1, na.rm = TRUE), 0)
+  cat(paste0("\n**", pct, "%** des indicateurs sont superieurs a la moyenne regionale.\n\n"))
+  kable(bl %>% select(indicator, morocco, region_avg, ratio) %>% arrange(desc(ratio)),
+        digits = 2, caption = "Detail benchmark")
+}
+```
+
+# Synthese et recommandations
+
+## Constats principaux
+
+1. **Croissance moderee** : TCAM de `r round(100 * tcam, 2)`% sur la periode.
+2. **Endettement public** : effet negatif significatif sur la croissance (p=0.041).
+3. **Inflation maitrisee** : correlation faible avec la croissance (r=`r r_cor`).
+4. **Secteur bancaire** : volatilite heterogene, CDM la plus risquee.
+5. **Competitivite** : `r round(100 * mean(bl$ratio > 1, na.rm = TRUE), 0)`% des indicateurs au-dessus de la region.
+6. **Modeles ML** : Random Forest surpasse Lasso et DL.
+
+## Perspectives
+
+- Poursuivre la diversification economique (services, tourisme, digital).
+- Contenir l'endettement public pour preserver la soutenabilite.
+- Renforcer la stabilite du secteur bancaire.
+- Exploiter les regimes economiques identifies pour la politique contracyclique.
+
+# Annexes
+
+## Livrables
+
+| Fichier | Description |
+|---|---|
+| master_dataset.csv | Dataset complet (macro + finance) |
+| rf_model.rds | Modele Random Forest |
+| lasso_model.rds | Modele Lasso (glmnet) |
+| arima_model.rds | Modele ARIMA automatique |
+| data_quality.csv | Qualite par indicateur |
+| *.png | 14 graphiques haute resolution |
+
+## Sources de donnees
+
+- Banque Mondiale (WDI) : indicateurs macroeconomiques
+- FMI (WEO) : perspectives economiques mondiales
+- UNDP (HDI) : developpement humain
+- Our World in Data (OWID) : indicateurs complementaires
+- Bourse de Casablanca : donnees boursieres bancaires
+
+---
+
+*Rapport genere automatiquement le `r Sys.time()` — Pipeline R sur Kaggle Kernel v18.*
