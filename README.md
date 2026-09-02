@@ -319,6 +319,69 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 
 ---
 
+## Data Quality & Interpolation
+
+### Problem: Fake Straight Lines
+
+The raw dataset (`indicators_clean.csv`) contains **sparse data** for early years (1960-1980). When missing values are filled with linear interpolation (`zoo::na.approx`), this creates **fake straight horizontal lines** in charts.
+
+```
+1960 ─────────────────── 1980 ───── 1990 ───── 2000
+      [interpolated]      [real data starts here]
+      straight lines      actual trends
+```
+
+### Solution: Filter by Data Availability
+
+Charts now exclude years where data is interpolated, showing only years with **real observations**:
+
+| Chart | Before | After | Reason |
+|-------|--------|-------|--------|
+| Trends (4 indicators) | 1960-2024 | **1980-2024** | GDP, unemployment data sparse before 1980 |
+| Sector Composition | 1960-2024 | **1980-2024** | Sector shares incomplete before 1980 |
+| Gini Coefficient | 1960-2024 | **1990-2024** | Gini data only available from 1990 |
+| Education | 1960-2024 | **1971-2024** | World Bank education data starts 1971 |
+
+### Data Availability by Indicator
+
+| Indicator | Code | 1960s | 1970s | 1980s | 1990s | 2000s | 2010s | 2020s |
+|-----------|------|-------|-------|-------|-------|-------|-------|-------|
+| GDP (nominal) | NGDPD | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| GDP Growth | NGDP_RPCH | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Inflation | PCPIPCH | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Unemployment | LUR | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Debt/GDP | GGXWDG_NGDP | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| Trade Balance | BCA_NGDPD | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Gini | SI.POV.GINI | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Primary Enrollment | SE.PRM.ENRR | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Literacy Rate | SE.ADT.LITR.ZS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+> ✅ = real data | ⚠️ = partial/interpolated | ❌ = no data
+
+### Interpolation Method
+
+```r
+# Original: linear interpolation (creates fake straight lines)
+macro[[c]] <- zoo::na.approx(v, na.rm = FALSE)
+
+# Problem: if values [10, NA, NA, NA, 50], result is [10, 20, 30, 40, 50]
+# This creates a perfect straight line that never existed in reality
+
+# Solution: filter charts to years with real data
+master %>% filter(year >= 1980)  # exclude interpolated years
+```
+
+### Why This Matters
+
+| Issue | Impact | Solution |
+|-------|--------|----------|
+| Interpolation creates fake trends | Charts misleading | Filter to real data years |
+| 1960-1980 data mostly missing | Straight lines in plots | Start charts from 1980 |
+| Gini only from 1990 | Empty early years | Start Gini chart from 1990 |
+| Education from 1971 | World Bank coverage | Use real education CSV |
+
+---
+
 ## Data Sources
 
 | Source | Coverage | Indicators |
