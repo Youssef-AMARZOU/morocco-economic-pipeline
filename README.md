@@ -37,7 +37,7 @@ Raw Data (WB, IMF, OWID, Casablanca SE)
    (includes education_real.csv - real World Bank education data)
         |
    [R Kernel]  maroc_pipeline.R  (Kaggle R notebook)
-        |         11 sections: Ingest → Clean → Join → EDA → Stats
+        |         12 sections: Ingest → Clean → Join → EDA → Stats
         |         → Scenarios → ML → DL → Benchmark → Validation
         |         → Export + HTML Report
         v
@@ -64,6 +64,33 @@ Raw Data (WB, IMF, OWID, Casablanca SE)
 | `run_all.py` | Orchestrator: runs the full ETL in sequence |
 | `get_log.py` | Helper to retrieve Kaggle kernel execution logs |
 | `publish_outputs.py` | Publish kernel outputs to Kaggle dataset |
+
+---
+
+## ZenML Scripts (`zenml/`)
+
+| Script | Purpose |
+|--------|---------|
+| `run_k8s.py` | Basic K8s pipeline (fetch + train) |
+| `run_enhanced.py` | Enhanced pipeline (HCP+WB+IMF, 130 features) |
+| `fetch_real_data.py` | Download 63 HCP XLSX + 25 World Bank indicators |
+| `fetch_education.py` | Fetch real education data from World Bank API |
+| `fetch_all_hcp.py` | Download all HCP datasets from data.gov.ma |
+| `generate_charts.py` | Generate 10 economic charts (enhanced data) |
+| `charts_real.py` | Generate 7 charts with real data |
+| `generate_enhanced_data.py` | Create enhanced indicator CSVs |
+| `optimize_r2.py` | R2 optimization (basic models) |
+| `optimize_real.py` | R2 optimization with real HCP data |
+| `optimize_honest.py` | Honest optimization (no GDP components) |
+| `optimize_enhanced.py` | Enhanced optimization (all features) |
+| `optimize_comprehensive.py` | Comprehensive model comparison |
+| `optimize_quarterly.py` | Quarterly data optimization |
+| `extract_quarterly.py` | Extract quarterly indicators from HCP |
+| `build_quarterly.py` | Build quarterly dataset |
+| `insights.py` | Economic insights analysis |
+| `patch_validate_path.py` | Base64 monkey-patch for Kaggle SDK |
+| `sitecustomize.py` | Auto-patch on Python startup |
+| `upload_readme.py` | Upload README to Kaggle dataset |
 
 ---
 
@@ -381,64 +408,44 @@ zenml integration install kubernetes mlflow
 python run_k8s.py
 ```
 
+### Available Pipelines
+
+| Pipeline | Script | Data Sources | Features | Best R2 |
+|----------|--------|--------------|----------|---------|
+| Basic K8s | `run_k8s.py` | World Bank | 8 | -0.12 |
+| Enhanced | `run_enhanced.py` | HCP+WB+IMF | 40+ | +0.20 |
+| Optimal | `optimize_honest.py` | HCP+WB+IMF (no leakage) | 31 | **+0.40** |
+
 ---
-
-## ZenML Kubernetes Pipeline (MLOps)
-
-### Data Sources (Real, No Leakage)
-
-| Source | Type | Indicators | Years |
-|--------|------|------------|-------|
-| World Bank (WDI) | API | 25 indicators | 1999-2026 |
-| IMF WEO | API | GDP forecasts | 1999-2026 |
-| HCP (data.gov.ma) | XLSX | 63 files (IPC, IPP, employment) | 1999-2026 |
-
-**Total: 130 features, 28 years (1999-2026)**
-
-### Results
-
-| Metric | Basic (WB) | Enhanced (HCP+WB+IMF) | **Optimal (Real Data)** |
-|--------|------------|----------------------|------------------------|
-| **R2** | -0.1183 | +0.1985 | **+0.3957** |
-| **RMSE** | 4.1327 | 3.9659 | **3.4436** |
-| **Samples** | 27 | 28 | 28 |
-| **Features** | 8 | 40+ | 31 |
-| **Best Model** | Ridge(a=100) | Ridge(a=10) | **SVR_linear** |
-| **Sources** | World Bank | HCP+WB+IMF | HCP+WB+IMF |
-
-**Note:** R2=0.40 is the realistic ceiling. GDP growth is driven by rainfall, tourism, global trade — factors not captured in standard datasets.
 
 ### Charts
 
-#### GDP Growth
-![GDP Growth](enhanced_data/charts/01_gdp_growth.png)
+#### Enhanced Data Charts (HCP+WB+IMF)
 
-#### Inflation (CPI)
-![Inflation](enhanced_data/charts/02_inflation.png)
+| Chart | File |
+|-------|------|
+| GDP Growth | ![GDP](enhanced_data/charts/01_gdp_growth.png) |
+| Inflation | ![Inflation](enhanced_data/charts/02_inflation.png) |
+| Trade Balance | ![Trade](enhanced_data/charts/03_trade.png) |
+| Unemployment | ![Unemployment](enhanced_data/charts/04_unemployment.png) |
+| Population | ![Population](enhanced_data/charts/05_population.png) |
+| Government Finance | ![Fiscal](enhanced_data/charts/06_fiscal.png) |
+| Actual vs Predicted | ![Pred](enhanced_data/charts/07_actual_vs_predicted.png) |
+| Correlation | ![Corr](enhanced_data/charts/08_correlation.png) |
+| Dashboard | ![Dash](enhanced_data/charts/09_dashboard.png) |
+| Model Performance | ![Perf](enhanced_data/charts/10_model_performance.png) |
 
-#### Trade Balance
-![Trade](enhanced_data/charts/03_trade.png)
+#### Real Data Charts (World Bank Education)
 
-#### Unemployment
-![Unemployment](enhanced_data/charts/04_unemployment.png)
-
-#### Population
-![Population](enhanced_data/charts/05_population.png)
-
-#### Government Finance
-![Fiscal](enhanced_data/charts/06_fiscal.png)
-
-#### Actual vs Predicted
-![Actual vs Predicted](enhanced_data/charts/07_actual_vs_predicted.png)
-
-#### Correlation Matrix
-![Correlation](enhanced_data/charts/08_correlation.png)
-
-#### Dashboard
-![Dashboard](enhanced_data/charts/09_dashboard.png)
-
-#### Model Performance
-![Model Performance](enhanced_data/charts/10_model_performance.png)
+| Chart | File |
+|-------|------|
+| Education Enrollment | ![Edu](enhanced_data/charts_real/01_education_real.png) |
+| Education Spending | ![Spend](enhanced_data/charts_real/02_education_spending_real.png) |
+| GDP (real) | ![GDP](enhanced_data/charts_real/03_gdp_real.png) |
+| Unemployment (real) | ![Unemp](enhanced_data/charts_real/04_unemployment_real.png) |
+| Inflation (real) | ![Infl](enhanced_data/charts_real/05_inflation_real.png) |
+| Trade (real) | ![Trade](enhanced_data/charts_real/06_trade_real.png) |
+| Dashboard (real) | ![Dash](enhanced_data/charts_real/07_dashboard_real.png) |
 
 ### Key Insights
 
