@@ -105,6 +105,7 @@ Reads 4 source CSVs: `indicators_clean.csv`, `dim_indicators.csv`, `bank_prices.
 - Filters to 1960+, removes empty/constant columns.
 - Interpolates missing values with `zoo::na.approx`.
 - Winsorizes outliers at 5th/95th percentiles.
+- Charts filter early years (before 1980) to avoid fake interpolated lines.
 
 ### 3. Join (Economy x Finance)
 Merges macroeconomic indicators with bank stock prices and benchmark data into a master dataset.
@@ -113,7 +114,7 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 
 #### Macroeconomic Trends
 ![Trends](kaggle_kernel/out/trends.png)
-> **Trends macroeconomiques du Maroc (1960-2024).** This chart shows the evolution of key economic indicators over 60+ years. GDP (NGDPD) grows exponentially from ~$3B to ~$140B. Inflation (FP.CPI.TOTL.ZG) stabilizes below 5% after the 1990s. Unemployment (SL.UEM.TOTL.ZS) fluctuates between 8-15%. External debt (DT.DOD.DECT.CD) rises sharply post-2010, reflecting infrastructure investment.
+> **Trends macroeconomiques du Maroc (1980-2024).** This chart shows the evolution of key economic indicators over 40+ years. GDP (NGDPD) grows exponentially from ~$20B to ~$140B. Inflation (FP.CPI.TOTL.ZG) stabilizes below 5% after the 1990s. Unemployment (SL.UEM.TOTL.ZS) fluctuates between 8-14%. External debt (DT.DOD.DECT.CD) rises sharply post-2010, reflecting infrastructure investment. Years before 1980 excluded (interpolated data).
 
 #### Sectoral Composition
 ![Sectors](kaggle_kernel/out/sector.png)
