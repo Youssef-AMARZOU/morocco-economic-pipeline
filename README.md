@@ -341,29 +341,28 @@ World Bank API  -->  K8s Pod (fetch_and_prepare)  -->  K8s Pod (train_and_log)  
 
 ### Results (Run #0020)
 
-| Metric | Value |
-|--------|-------|
-| **R2** | -0.1183 |
-| **RMSE** | 4.1327 |
-| **Samples** | 27 |
-| **Features** | 5 core + 3 lags = 8 |
-| **Model** | Ridge (alpha=100) |
-| **Duration** | fetch=25s, train=17s |
+| Metric | Basic (WB) | Enhanced (HCP+WB+IMF) |
+|--------|------------|----------------------|
+| **R2** | -0.1183 | **+0.1985** |
+| **RMSE** | 4.1327 | **3.9659** |
+| **Samples** | 27 | 28 |
+| **Features** | 8 | **40+** (14 core + lags + rolling) |
+| **Best Model** | Ridge(a=100) | **Ridge(a=10)** |
+| **Sources** | World Bank | **HCP + World Bank + IMF** |
 
-#### Actual vs Predicted (GDP Real Growth %)
+#### Actual vs Predicted (GDP Real Growth %) - Enhanced
 
 | Year | Actual | Predicted | Error |
 |------|--------|-----------|-------|
-| 2019 | 3.07% | 4.15% | +1.08 |
-| 2020 | 2.89% | 4.16% | +1.27 |
-| 2021 | -7.18% | 4.16% | +11.34 |
-| 2022 | 8.15% | 4.16% | -3.99 |
-| 2023 | 1.81% | 4.18% | +2.37 |
-| 2024 | 3.66% | 4.19% | +0.53 |
-| 2025 | 3.79% | 4.17% | +0.38 |
-| 2026 | 4.60% | 4.16% | -0.44 |
+| 2019 | -7.18% | 1.58% | +8.76 |
+| 2020 | 8.15% | 2.83% | -5.32 |
+| 2021 | 1.81% | 3.75% | +1.94 |
+| 2022 | 3.66% | 3.90% | +0.24 |
+| 2023 | 3.79% | 3.03% | -0.76 |
+| 2024 | 4.60% | 4.31% | -0.29 |
+| 2025 | 4.60% | 3.77% | -0.83 |
 
-**Interpretation:** R2=-0.12 is consistent with local runs. The model predicts near the historical mean (~4%), unable to capture COVID-19 shock (2021: -7.18%) or rebound (2022: +8.15%). This is expected — GDP growth is driven by structural factors (rainfall, global trade) not captured by annual macro indicators.
+**Interpretation:** Adding official Moroccan data (HCP/IPC, IMF forecasts, 25+ World Bank indicators) and engineered features (lags, rolling averages, trade balance) improved R2 from **-0.12 to +0.20**. The model now captures more variance, though COVID-19 shock (2019: -7.18%) remains unpredictable. Ridge with alpha=10 is the best anti-overfit model.
 
 ### Dashboard
 - **ZenML**: http://localhost:8080
