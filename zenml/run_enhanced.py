@@ -247,7 +247,8 @@ def train_and_log(
     """Train multiple models with strong regularization."""
     import mlflow
     from sklearn.linear_model import Ridge, Lasso, ElasticNet
-    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+    from sklearn.svm import SVR
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import r2_score, mean_squared_error
     from sklearn.model_selection import cross_val_score
@@ -272,16 +273,27 @@ def train_and_log(
         "Lasso_a1": Lasso(alpha=1.0),
         "ElasticNet": ElasticNet(alpha=1.0, l1_ratio=0.5),
         "RF_10trees": RandomForestRegressor(n_estimators=10, max_depth=3, random_state=42),
+        "SVR_linear": SVR(kernel='linear', C=1),
+        "SVR_rbf": SVR(kernel='rbf', C=1),
+        "GBM_50": GradientBoostingRegressor(n_estimators=50, max_depth=2, random_state=42),
     }
 
     results = {}
     best_r2 = -999
+    scaler = StandardScaler()
+    X_train_s = scaler.fit_transform(X_train)
+    X_test_s = scaler.transform(X_test)
 
     for name, model in models.items():
         with mlflow.start_run(nested=True, run_name=name):
-            model.fit(X_train, y_train)
-            train_pred = model.predict(X_train)
-            test_pred = model.predict(X_test)
+            if name.startswith("SVR"):
+                model.fit(X_train_s, y_train)
+                train_pred = model.predict(X_train_s)
+                test_pred = model.predict(X_test_s)
+            else:
+                model.fit(X_train, y_train)
+                train_pred = model.predict(X_train)
+                test_pred = model.predict(X_test)
 
             train_r2 = r2_score(y_train, train_pred)
             test_r2 = r2_score(y_test, test_pred)
@@ -314,7 +326,10 @@ def train_and_log(
 
     # Final predictions with best model
     best = models[results["best_model"]]
-    test_pred = best.predict(X_test)
+    if results["best_model"].startswith("SVR"):
+        test_pred = best.predict(X_test_s)
+    else:
+        test_pred = best.predict(X_test)
 
     print(f"\n=== BEST MODEL: {results['best_model']} ===")
     print(f"Test R2={results['best_r2']:.4f} | RMSE={results['best_rmse']:.4f}")
