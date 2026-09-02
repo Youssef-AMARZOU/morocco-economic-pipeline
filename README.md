@@ -319,6 +319,67 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 
 ---
 
+## ZenML MLOps Pipeline (Kubernetes)
+
+End-to-end ML pipeline running on Kubernetes with MLflow experiment tracking.
+
+### Architecture
+```
+World Bank API  -->  K8s Pod (fetch_and_prepare)  -->  K8s Pod (train_and_log)  -->  MLflow
+                      |                                    |
+                      Fetch 12 indicators               Ridge Regression
+                      (1999-2026, 28 years)             alpha=100, StandardScaler
+```
+
+### Stack
+| Component | Name | Config |
+|-----------|------|--------|
+| Orchestrator | `k8s_orch` | Kind cluster `zenml-cluster` |
+| Artifact Store | `shared_store_linux` | `/mnt/data` (hostPath volume) |
+| Container Registry | `local_registry` | `localhost:5001` |
+| Experiment Tracker | `mlflow_tracker` | `http://localhost:5000` |
+
+### Results (Run #0020)
+
+| Metric | Value |
+|--------|-------|
+| **R2** | -0.1183 |
+| **RMSE** | 4.1327 |
+| **Samples** | 27 |
+| **Features** | 5 core + 3 lags = 8 |
+| **Model** | Ridge (alpha=100) |
+| **Duration** | fetch=25s, train=17s |
+
+#### Actual vs Predicted (GDP Real Growth %)
+
+| Year | Actual | Predicted | Error |
+|------|--------|-----------|-------|
+| 2019 | 3.07% | 4.15% | +1.08 |
+| 2020 | 2.89% | 4.16% | +1.27 |
+| 2021 | -7.18% | 4.16% | +11.34 |
+| 2022 | 8.15% | 4.16% | -3.99 |
+| 2023 | 1.81% | 4.18% | +2.37 |
+| 2024 | 3.66% | 4.19% | +0.53 |
+| 2025 | 3.79% | 4.17% | +0.38 |
+| 2026 | 4.60% | 4.16% | -0.44 |
+
+**Interpretation:** R2=-0.12 is consistent with local runs. The model predicts near the historical mean (~4%), unable to capture COVID-19 shock (2021: -7.18%) or rebound (2022: +8.15%). This is expected — GDP growth is driven by structural factors (rainfall, global trade) not captured by annual macro indicators.
+
+### Dashboard
+- **ZenML**: http://localhost:8080
+- **MLflow**: http://localhost:5000
+
+### Run Locally
+```bash
+cd zenml
+pip install zenml
+zenml init
+zenml integration install kubernetes mlflow
+python run_k8s.py
+```
+
+---
+
 ## How to Run
 
 ### On Kaggle (recommended)
