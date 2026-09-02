@@ -89,17 +89,19 @@ png("/kaggle/working/corr.png", width = 900, height = 800)
 corrplot::corrplot(corr[1:min(30, nrow(corr)), 1:min(30, nrow(corr))],
                    method = "color", type = "lower", tl.cex = 0.5, na.label = " ")
 dev.off()
-ml <- master %>% pivot_longer(all_of(intersect(key, names(master))), names_to = "ind", values_to = "val")
+ml <- master %>% filter(year >= 1980) %>%
+  pivot_longer(all_of(intersect(key, names(master))), names_to = "ind", values_to = "val")
 p <- ggplot(ml, aes(x = year, y = val)) + geom_line(na.rm = TRUE) +
   facet_wrap(~ind, scales = "free_y", ncol = 2) + theme_minimal() +
-  labs(title = "Tendances macroeconomiques principales")
+  labs(title = "Tendances macroeconomiques principales (1980-2024)",
+       subtitle = "Annees avant 1980 exclues (donnees interpolatees)")
 ggsave("/kaggle/working/trends.png", p, width = 10, height = 7)
 
 # Composition sectorielle
 sec_cols <- c("NV.AGR.TOTL.ZS", "NV.IND.TOTL.ZS", "NV.SRV.TOTL.ZS")
 sec_cols <- sec_cols[sec_cols %in% names(master)]
 if (length(sec_cols) >= 2) {
-  sec <- master %>% select(year, all_of(sec_cols)) %>% drop_na()
+  sec <- master %>% filter(year >= 1980) %>% select(year, all_of(sec_cols)) %>% drop_na()
   if (nrow(sec) > 2) {
     png("/kaggle/working/sector.png", width = 900, height = 500)
     matplot(sec$year, as.matrix(sec[, -1]), type = "l", lty = 1, col = 2:4,
@@ -112,7 +114,7 @@ if (length(sec_cols) >= 2) {
 
 # Gini
 if ("SI.POV.GINI" %in% names(master)) {
-  gi <- master %>% select(year, SI.POV.GINI) %>% drop_na()
+  gi <- master %>% filter(year >= 1990) %>% select(year, SI.POV.GINI) %>% drop_na()
   if (nrow(gi) > 2) {
     png("/kaggle/working/gini.png", width = 800, height = 450)
     plot(gi$year, gi$SI.POV.GINI, type = "l", main = "Indice de Gini (Maroc)",
