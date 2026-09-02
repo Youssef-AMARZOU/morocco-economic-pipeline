@@ -9,6 +9,8 @@ End-to-end socio-economic-financial analysis pipeline for Morocco — from raw d
 | Resource | Link |
 |----------|------|
 | **Dataset** (22 CSVs) | [amarzouyoussef/economie-maroc-rasd](https://www.kaggle.com/datasets/amarzouyoussef/economie-maroc-rasd) |
+| **Charts & Insights V2** | [amarzouyoussef/morocco-charts-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-charts-v2) |
+| **Analysis V2** (CSV + HCP) | [amarzouyoussef/morocco-economic-analysis-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-economic-analysis-v2) |
 | **R Kernel** (notebook, linked to GitHub) | [amarzouyoussef/maroc-pipeline-r](https://www.kaggle.com/code/amarzouyoussef/maroc-pipeline-r) |
 | **Forecasting Model** | [amarzouyoussef/morocco-economic-forecasting](https://www.kaggle.com/models/amarzouyoussef/morocco-economic-forecasting) |
 
@@ -493,6 +495,27 @@ python run_all.py
 # 3. Run R analysis
 Rscript maroc_pipeline.R
 ```
+
+---
+
+## Charts & Insights Gallery
+
+Real data visualizations (10 charts) from Morocco economic analysis (1999-2026).
+
+### [Charts Dataset on Kaggle](https://www.kaggle.com/datasets/amarzouyoussef/morocco-charts-v2)
+
+| Chart | Description |
+|-------|-------------|
+| ![GDP](enhanced_data/charts/01_gdp_growth.png) | GDP Growth — average 3.73%, COVID shock -7.18% |
+| ![Inflation](enhanced_data/charts/02_inflation.png) | Inflation (CPI) — rising 1.73% → 3.03% |
+| ![Trade](enhanced_data/charts/03_trade.png) | Trade Balance — structural deficit -8.3% |
+| ![Unemployment](enhanced_data/charts/04_unemployment.png) | Unemployment — 10.1% average (jobless growth) |
+| ![Population](enhanced_data/charts/05_population.png) | Population — 1.13%/year growth, urbanization 63% |
+| ![Fiscal](enhanced_data/charts/06_fiscal.png) | Government Finance — debt 50.5% of GDP |
+| ![Actual vs Predicted](enhanced_data/charts/07_actual_vs_predicted.png) | Model predictions — SVR_linear R2=0.40 |
+| ![Correlation](enhanced_data/charts/08_correlation.png) | Correlation matrix — 117 features |
+| ![Dashboard](enhanced_data/charts/09_dashboard.png) | Dashboard — 4 key indicators |
+| ![Model Performance](enhanced_data/charts/10_model_performance.png) | Model comparison — SVR_linear best |
 
 ---
 
