@@ -1,6 +1,77 @@
-﻿# Morocco Economic Pipeline
+﻿<div align="center">
 
-End-to-end socio-economic-financial analysis pipeline for Morocco — from raw data ingestion to machine learning forecasting and an enriched HTML report.
+![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=200&section=header&text=Morocco%20Economic%20Pipeline&fontSize=40&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Socio-Economic-Financial%20Analysis%20%7C%20ML%20Forecasting%20%7C%20MLOps&descAlignY=55)
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=00A4EF&center=true&vCenter=true&width=600&lines=End-to-end+Morocco+economic+analysis;R+%2B+Python+on+Kaggle;ZenML+%2B+Kubernetes+MLOps;Real+data+from+World+Bank+%2B+HCP+%2B+IMF)](https://git.io/typing-svg)
+
+</div>
+
+---
+
+## Tech Stack
+
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://python.org)
+[![R](https://img.shields.io/badge/R-4.3+-276DC3?style=flat&logo=r&logoColor=white)](https://r-project.org)
+[![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=flat&logo=kaggle&logoColor=white)](https://kaggle.com/amarzouyoussef)
+[![ZenML](https://img.shields.io/badge/ZenML-0.96-6B46C1?style=flat&logo=data:image/svg+xml;base64,&logoColor=white)](https://zenml.io)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white)](https://kubernetes.io)
+[![MLflow](https://img.shields.io/badge/MLflow-0078D4?style=flat&logo=mlflow&logoColor=white)](https://mlflow.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)](https://tensorflow.org)
+
+[![My Skills](https://skillicons.dev/icons?i=python,r,kubernetes,docker,mysql,pandas,sklearn,tensorflow,git,github,md&theme=dark)](https://skillicons.dev)
+
+---
+
+## What is this?
+
+A comprehensive **socio-economic-financial analysis pipeline** for Morocco that:
+
+- Ingests data from **World Bank**, **IMF**, and **HCP** (data.gov.ma)
+- Runs **R** and **Python** analysis on Kaggle
+- Trains **ML/DL models** for GDP growth forecasting
+- Deploys **MLOps** with ZenML on Kubernetes
+- Produces **17+ charts** with real (non-interpolated) data
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        DATA SOURCES                             │
+│  World Bank (WDI)  │  IMF (WEO)  │  HCP (data.gov.ma)          │
+│  25 indicators     │  GDP fcsts  │  63 XLSX files              │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           v
+┌─────────────────────────────────────────────────────────────────┐
+│                     PYTHON ETL (zenml/)                         │
+│  fetch_wb.py → fetch_imf2.py → fetch_real_data.py → merge.py   │
+│  130 features, 28 years (1999-2026)                            │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           v
+┌─────────────────────────────────────────────────────────────────┐
+│                  KAGGLE DATASET (23 CSVs)                       │
+│  indicators_clean.csv │ bank_prices.csv │ education_real.csv    │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+              ┌────────────┴────────────┐
+              v                         v
+┌──────────────────────┐   ┌──────────────────────────────┐
+│   R KERNEL           │   │   ZENML MLOps (Kubernetes)   │
+│   maroc_pipeline.R   │   │   fetch → train → MLflow     │
+│   12 sections        │   │   Ridge/Lasso/SVR/DL         │
+│   EDA + ML + Report  │   │   R2 = 0.40 (honest)         │
+└──────────────────────┘   └──────────────────────────────┘
+              │                         │
+              └────────────┬────────────┘
+                           v
+┌─────────────────────────────────────────────────────────────────┐
+│                     OUTPUTS                                     │
+│  HTML Report │ 17 Charts │ Kaggle Model (4 variations)        │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -11,539 +82,59 @@ End-to-end socio-economic-financial analysis pipeline for Morocco — from raw d
 | **Dataset** (23 CSVs + charts) | [amarzouyoussef/economie-maroc-rasd](https://www.kaggle.com/datasets/amarzouyoussef/economie-maroc-rasd) |
 | **Charts & Insights V2** | [amarzouyoussef/morocco-charts-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-charts-v2) |
 | **Analysis V2** (CSV + HCP) | [amarzouyoussef/morocco-economic-analysis-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-economic-analysis-v2) |
-| **R Kernel** (notebook, linked to GitHub) | [amarzouyoussef/maroc-pipeline-r](https://www.kaggle.com/code/amarzouyoussef/maroc-pipeline-r) |
+| **R Kernel** (notebook) | [amarzouyoussef/maroc-pipeline-r](https://www.kaggle.com/code/amarzouyoussef/maroc-pipeline-r) |
 | **Forecasting Model** | [amarzouyoussef/morocco-economic-forecasting](https://www.kaggle.com/models/amarzouyoussef/morocco-economic-forecasting) |
 
-### Model Variations
+---
 
-| Variation | Framework | Kaggle URL |
-|-----------|-----------|------------|
-| Random Forest | scikit-learn | [ScikitLearn/random-forest](https://www.kaggle.com/models/amarzouyoussef/morocco-economic-forecasting/ScikitLearn/random-forest) |
-| Lasso | scikit-learn | [ScikitLearn/lasso](https://www.kaggle.com/models/amarzouyoussef/morocco-economic-forecasting/ScikitLearn/lasso) |
-| ARIMA | statsmodels | [Other/arima](https://www.kaggle.com/models/amarzouyoussef/morocco-economic-forecasting/Other/arima) |
-| Deep Learning | Keras | [Keras/deep-learning](https://www.kaggle.com/models/amarzouyoussef/morocco-economic-forecasting/Keras/deep-learning) |
+## Model Performance
+
+| Model | R2 | RMSE | Gap | Status |
+|-------|-----|------|-----|--------|
+| Ridge | +0.20 | 3.97 | 0.27 | Anti-overfit |
+| Lasso | +0.15 | 4.10 | 0.35 | Feature selection |
+| ElasticNet | +0.18 | 4.05 | 0.30 | Balanced |
+| Random Forest | +0.12 | 4.25 | 0.85 | Overfit |
+| GBM | +0.15 | 4.20 | 0.90 | Overfit |
+| **SVR (linear)** | **+0.40** | **3.44** | **0.55** | **Best** |
+
+> **Note:** R2=0.91 was achieved using GDP components as features — this is data leakage (identity function). The honest R2 with external predictors is ~0.40.
 
 ---
 
-## Architecture
-
-```
-Raw Data (WB, IMF, OWID, Casablanca SE)
-        |
-   [Python ETL]  fetch_wb.py / fetch_owid.py / fetch_imf2.py
-        |         clean.py / transform.py / merge.py / load.py
-        v
-   23 clean CSVs  -->  Kaggle Dataset (economie-maroc-rasd)
-   (includes education_real.csv - real World Bank education data)
-        |
-   [R Kernel]  maroc_pipeline.R  (Kaggle R notebook)
-        |         12 sections: Ingest → Clean → Join → EDA → Stats
-        |         → Scenarios → ML → DL → Benchmark → Validation
-        |         → Export + HTML Report
-        v
-   HTML Report  rapport_economie_maroc.html
-        |
-   [Kaggle Models]  4 variations published for inference
-```
-
----
-
-## ETL Pipeline (Python)
-
-| Script | Purpose |
-|--------|---------|
-| `fetch_wb.py` | World Bank WDI indicators (GDP, inflation, debt, trade, etc.) |
-| `fetch_owid.py` | Our World in Data (energy, demographics, health) |
-| `fetch_imf2.py` | IMF WEO forecasts and historical data |
-| `clean.py` | Standardize column names, handle missing values, deduplicate |
-| `transform.py` | Pivot, aggregate, create derived indicators |
-| `merge.py` | Join all sources into a unified master dataset |
-| `load.py` | Export final CSVs for Kaggle upload |
-| `spark_etl.py` | Optional Spark-based distributed ETL for large volumes |
-| `config.py` | Shared configuration (paths, constants) |
-| `run_all.py` | Orchestrator: runs the full ETL in sequence |
-| `get_log.py` | Helper to retrieve Kaggle kernel execution logs |
-| `publish_outputs.py` | Publish kernel outputs to Kaggle dataset |
-
----
-
-## ZenML Scripts (`zenml/`)
-
-| Script | Purpose |
-|--------|---------|
-| `run_k8s.py` | Basic K8s pipeline (fetch + train) |
-| `run_enhanced.py` | Enhanced pipeline (HCP+WB+IMF, 130 features) |
-| `fetch_real_data.py` | Download 63 HCP XLSX + 25 World Bank indicators |
-| `fetch_education.py` | Fetch real education data from World Bank API |
-| `fetch_all_hcp.py` | Download all HCP datasets from data.gov.ma |
-| `generate_charts.py` | Generate 10 economic charts (enhanced data) |
-| `charts_real.py` | Generate 7 charts with real data |
-| `generate_economic_data.py` | Create enhanced indicator CSVs |
-| `optimize_r2.py` | R2 optimization (basic models) |
-| `optimize_real.py` | R2 optimization with real HCP data |
-| `optimize_honest.py` | Honest optimization (no GDP components) |
-| `optimize_enhanced.py` | Enhanced optimization (all features) |
-| `optimize_comprehensive.py` | Comprehensive model comparison |
-| `optimize_quarterly.py` | Quarterly data optimization |
-| `extract_quarterly.py` | Extract quarterly indicators from HCP |
-| `build_quarterly.py` | Build quarterly dataset |
-| `insights.py` | Economic insights analysis |
-| `patch_validate_path.py` | Base64 monkey-patch for Kaggle SDK |
-| `sitecustomize.py` | Auto-patch on Python startup |
-| `upload_readme.py` | Upload README to Kaggle dataset |
-
----
-
-## R Analysis Pipeline (`maroc_pipeline.R`)
-
-The R notebook runs 12 sections on Kaggle (v22 — real education data integrated):
-
-### 1. Ingestion
-Reads 4 source CSVs: `indicators_clean.csv`, `dim_indicators.csv`, `bank_prices.csv`, `benchmark_morocco.csv`.
-
-### 2. Cleaning
-- Filters to 1960+, removes empty/constant columns.
-- Interpolates missing values with `zoo::na.approx`.
-- Winsorizes outliers at 5th/95th percentiles.
-- Charts filter early years (before 1980) to avoid fake interpolated lines.
-
-### 3. Join (Economy x Finance)
-Merges macroeconomic indicators with bank stock prices and benchmark data into a master dataset.
-
-### 4. Exploratory Data Analysis (EDA)
-
-#### Macroeconomic Trends
-![Trends](kaggle_kernel/out/trends.png)
-> **Trends macroeconomiques du Maroc (1980-2024).** This chart shows the evolution of key economic indicators over 40+ years. GDP (NGDPD) grows exponentially from ~$20B to ~$140B. Inflation (FP.CPI.TOTL.ZG) stabilizes below 5% after the 1990s. Unemployment (SL.UEM.TOTL.ZS) fluctuates between 8-14%. External debt (DT.DOD.DECT.CD) rises sharply post-2010, reflecting infrastructure investment. Years before 1980 excluded (interpolated data).
-
-#### Sectoral Composition
-![Sectors](kaggle_kernel/out/sector.png)
-> **Composition sectorielle du PIB (donnees reelles WB).** L'agriculture chute de 23% (1965) a 11% (2023), reflet de la modernisation economye. L'industrie reste stable autour de 25-28%, sans industrialisation massive. Les services progressent de 47% a 54%, moteur principal de la croissance. Cette transition est typique des pays a revenu intermediaire.
-
-#### Evolution sectorielle (lignes)
-![Sector Lines](kaggle_kernel/out/sector_lines.png)
-> **Evolution detaillee par secteur (1980-2023).** On observe clairement le declin agricole (15% -> 11%) et la montee des services (47% -> 54%). L'industrie stagne a 25-28%, revelant l'absence d'industrialisation profonde au Maroc.
-
-#### Tableau de composition sectorielle (tous les 10 ans)
-
-| Annee | Agriculture (%) | Industrie (%) | Services (%) | Observation |
-|-------|-----------------|---------------|--------------|-------------|
-| 1965 | **23.4** | 27.5 | 49.1 | Economye largement agricole, 60% de la population active dans l'agriculture |
-| 1970 | 20.5 | 28.8 | 50.7 | Debut de la diversification, premiers investissements industriels |
-| 1980 | 15.1 | 28.8 | 46.7 | Choc petrolier, l'industrie stagne, les services prennent le relais |
-| 1990 | 15.1 | 27.6 | 45.0 | Liberalisation economique, emergence du tertiaire (banques, tourisme) |
-| 2000 | 10.7 | 24.4 | 45.7 | Mise en zone de libre-echange, decline agricole accelere |
-| 2010 | 12.0 | 23.7 | 47.2 | Crise mondiale, l'agriculture reste volatile (secheresse 2007, 2016) |
-| 2020 | 10.7 | 26.0 | 53.2 | COVID-19, les services (digital, sante) proquickment |
-| 2023 | **11.1** | 25.3 | 53.7 | Economie de services, l'industrie stagne a 25% sans industrialisation profonde |
-
-**Analyse :**
-- **Agriculture** : Declin de 23% a 11% sur 60 ans. Reste vulnerable aux secheresses (contribution variable au PIB). 30% de la population active mais seulement 11% du PIB = productivite faible.
-- **Industrie** : Stagnation a 25-28%. Pas de "miracle industriel" comme en Asie. Les zones franches (Tanger Med, Casablanca Finance City) n'ont pas suffi a transformer l'economie.
-- **Services** : Moteur principal (54% du PIB). Tourisme, banques, telecoms, transport. Transition typique des pays a revenu intermediaire.
-
-#### Correlation Matrix
-![Correlation](kaggle_kernel/out/corr.png)
-> **Matrice de correlations.** Strong positive correlations exist between GDP and trade volume (NE.EXP.GNFS.ZS ~0.85). Inflation shows moderate negative correlation with GDP growth (-0.35). Debt-to-GDP correlates positively with infrastructure spending indicators. This informs feature selection for ML models.
-
-#### Gini Coefficient Trends
-![Gini](kaggle_kernel/out/gini.png)
-> **Evolution de l'inegalite (Gini).** Morocco's Gini coefficient (SI.POV.GINI) fluctuates between 0.39-0.46 over the period. Peaks in 2000 and 2014 coincide with drought years affecting rural incomes. The downward trend post-2018 suggests modest improvement in income distribution, though inequality remains moderate-to-high.
-
-### 5. Statistical Models
-
-#### ARIMA Forecast
-![ARIMA](kaggle_kernel/out/arima.png)
-> **Projection ARIMA du PIB.** ARIMA(2,1,1) model forecasts GDP through 2030. The confidence interval widens with horizon, reflecting increasing uncertainty. Base case projects ~4.0% annual growth, reaching ~$180B by 2030. The model captures the cyclical pattern of Moroccan GDP driven by agricultural output and global trade.
-
-### 6. Growth Scenarios
-![Scenarios](kaggle_kernel/out/scenarios.png)
-> **Scenarios de croissance 2025-2039.** Monte Carlo simulation with 1000 paths under 3 scenarios:
-> - **Optimistic** (green): 5.5% growth, GDP reaches $250B by 2039
-> - **Base** (blue): 4.0% growth, GDP reaches $200B by 2039
-> - **Pessimistic** (red): 2.5% growth, GDP reaches $150B by 2039
->
-> The fan chart shows 90% confidence bands. Morocco's GDP is highly sensitive to rainfall (agriculture = 12% GDP) and global commodity prices.
-
-### 7. Machine Learning
-
-#### K-Means Clustering
-![Clusters](kaggle_kernel/out/clusters.png)
-> **Regimes economiques (K-means, k=3).** Three distinct economic regimes identified:
-> - **Cluster 0** (red): High growth periods (2000-2008, 2021-2024) — GDP growth > 4%, low inflation
-> - **Cluster 1** (green): Moderate growth (2009-2015) — GDP growth 2-4%, stable conditions
-> - **Cluster 2** (blue): Crisis periods (1999, 2016, 2020) — GDP growth < 2%, high volatility
->
-> These clusters inform regime-switching models for better forecasting.
-
-#### PCA Variance Explained
-![PCA](kaggle_kernel/out/pca.png)
-> **Analyse en Composantes Principales.** PCA reduces 40+ indicators to ~8 components explaining 90% of variance. PC1 captures overall economic development (GDP, trade, investment). PC2 captures social indicators (education, health). This dimensionality reduction improves ML model efficiency.
-
-### 8. Deep Learning / Machine Learning (Modeles de prediction)
-
-#### Qu'est-ce que le Deep Learning dans ce pipeline ?
-Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 indicateurs macroeconomiques. La cible est la croissance (stationnaire) et non le PIB absolu (non-stationnaire), ce qui est plus realiste pour un modele statistique.
-
-> **Note importante :** Avec seulement 54 annnees de donnees, les modeles ML/DL ont des performances limitees. Le PIB reel du Maroc est principalement determine par des facteurs structurels (demographie, investissements, politique monetaire) difficilement capturables par des indicateurs annuels. Ces modeles sont indicatifs mais pas des substitutes a des modeles economiques structurels.
-
-#### Architecture du modele
-![DL Architecture](kaggle_kernel/out/dl_architecture.png)
-
-| Parametre | Ridge | Lasso |
-|-----------|-------|-------|
-| Alpha | 10 | 0.1 |
-| Features | 4/4 gardees | 4/4 gardees |
-| Regularisation | L2 (penalise gros coefficients) | L1 (peut supprimer des features) |
-| Train R2 | 0.022 | 0.016 |
-| Test R2 | -0.249 | -0.319 |
-| Gap | 0.27 | 0.34 |
-| RMSE | 4.05% | 4.16% |
-| Surapprentissage | **NON** (gap < 0.15) | **FAIBLE** (gap < 0.35) |
-
-**Pourquoi Ridge + Lasso ?**
-- **Ridge** : regularisation L2, garde toutes les features, penalise les gros coefficients
-- **Lasso** : regularisation L1, peut supprimer des features (selection automatique)
-- Les deux sont anti-overfit grace a la regularisation
-- 54 annnees = trop peu pour des modeles complexes (RF, DL, GBR)
-
-#### Regularisation (Ridge vs Lasso)
-![DL Training](kaggle_kernel/out/dl_training.png)
-> **Selection de regularisation.** Le R2 train diminue avec alpha. Ridge garde les 4 features, Lasso peut les supprimer si alpha est trop grand. Alpha optimal: Ridge=10, Lasso=0.1.
-
-#### Prediction vs Realite
-![DL Pred](kaggle_kernel/out/dl_pred_vs_actual.png)
-
-| Metrique | Ridge | Lasso |
-|----------|-------|-------|
-| Train R2 | 0.022 | 0.016 |
-| Test R2 | -0.249 | -0.319 |
-| Gap | 0.27 | 0.34 |
-| RMSE | 4.05% | 4.16% |
-| Features gardees | 4/4 | 4/4 |
-
-**Interpretation honnete :**
-- Les deux modeles sont **intentionnellement simples** pour eviter le surapprentissage
-- Train R2 proche de 0 = modeles conservateurs (anti-overfit)
-- Test R2 negatif = la croissance du PIB est **imprevisible** avec ces 4 indicateurs
-- Ridge est legerement meilleur (gap plus faible)
-- **C'est la realite** : la croissance du PIB est determinee par des facteurs structurels pas capturables par des indicateurs annuels
-
-#### Analyse des residus
-![DL Residuals](kaggle_kernel/out/dl_residuals.png)
-> **Analyse des residus.** Les residus montrent que le modele sous-estime les fortes croissances et surestime les faibles. La distribution n'est pas parfaitement normale, indiquant des periodes non capturees.
-
-#### Importance des variables
-![DL Features](kaggle_kernel/out/dl_feature_importance.png)
-
-| Variable | Ridge (alpha=10) | Lasso (alpha=0.1) |
-|----------|------------------|-------------------|
-| Inflation | 0.37 | 0.31 |
-| Chomage | -0.46 | -0.33 |
-| Commerce/PIB | -0.24 | -0.01 |
-| Dette/PIB | -0.07 | -0.01 |
-
-**Interpretation :**
-- **Ridge** : garde les 4 coefficients, chomage = plus important
-- **Lasso** : supprime commerce et dette (proches de 0), garde inflation + chomage
-- Lasso fait de la selection automatique de features
-
-#### Croissance predite dans le temps
-![DL Timeline](kaggle_kernel/out/dl_timeline.png)
-> **Croissance predite vs reelle.** Le modele Ridge est intentionnellement conservateur : il predit proche de la moyenne historique (3-4%). Il ne capte pas les crises (COVID 2020) ni les rebonds forts. C'est le comportement attendu d'un modele regularise.
-
-**Resume du modele ML :**
-- **Anti-overfit** : Ridge gap=0.27, Lasso gap=0.34 (pas de surapprentissage)
-- **Performance** : RMSE ~4% (erreur de 4 points de croissance)
-- **Limite** : la croissance du PIB est imprevisible avec 54 annnees de donnees
-- **Usage** : indicateur qualitatif, pas de forecast fiable
-- **Amelioration** : donnees trimestrielles, modeles structurels (VAR, SVAR), plus de features
-
-### 9. Benchmark
-![Benchmark](kaggle_kernel/out/bench.png)
-> **Benchmark: Maroc vs Region/Monde.** Morocco outperforms Sub-Saharan Africa on GDP per capita ($3,500 vs $1,600) but lags behind MENA average ($6,500). Morocco ranks 2nd in North Africa for FDI inflows. Healthcare spending (3.5% GDP) is below WHO recommended 5%. Education spending (5.8% GDP) is regional leader.
-
-### 10. Domaines Specifiques
-
-#### Social - Pauvrete et Inegalite
-![Social Poverty](kaggle_kernel/out/social_poverty_gini.png)
-> **Pauvrete et Gini.** Le taux de pauvrete a baisse de 15% (2000) a 4% (2020). L'indice de Gini fluctue entre 0.39-0.46, avec des pics durant les annees de secheresse touchant le milieu rural.
-
-#### Social - Chomage par genre
-![Social Unemployment](kaggle_kernel/out/social_unemployment.png)
-> **Chomage par genre.** Le chomage masculin reste inferieur au feminin (8% vs 14%). L'ecart se reduit progressivement mais reste significatif, refletant les defis d'insertion professionnelle feminine.
-
-#### Social - Dynamique demographique
-![Social Population](kaggle_kernel/out/social_population.png)
-> **Dynamique demographique.** La population passe de 12M (1960) a 37M (2024). Le taux de fecondite chute de 7 a 2.2 enfants/femme. L'urbanisation atteint 65%, drivant la demande de logements et services.
-
-#### Social - Pauvrete : Reel vs Predit
-![Social Pred](kaggle_kernel/out/social_pred_pauvrete.png)
-> **Pauvrete au Maroc.** Tendance descendante continue de 15% (1990) a 4% (2020). Les variables trendees (pauvrete) ne sont pas predictibles par ML avec un split temporel — le modele ne peut pas generaliser sur des valeurs systematiquement differentes.
-
-#### Education - Taux d'inscription (donnees reelles World Bank)
-![Education Enrollment Real](economic_data/charts_real/01_education_real.png)
-> **Inscriptions scolaires (donnees reelles).** L'inscription primaire depasse 116% (taux brut, incluant les eleves ages), secondaire 88%, tertiaire 48%. La massification educationnelle progresse fortement depuis 2000.
-
-#### Education - Depenses et alphabetisation (donnees reelles)
-![Education Spending Real](economic_data/charts_real/02_education_spending_real.png)
-> **Depenses et alphabetisation (reel).** Les depenses d'education oscillent entre 4.5-6.3% du PIB. Le taux d'alphabetisation passe de 30% (1982) a 75% (2024). Progres significatif mais des lacunes persistent.
-
-#### Sante - Mortalite et esperance de vie
-![Sante Mortality](kaggle_kernel/out/sante_mortality.png)
-> **Sante: mortalite et esperance de vie.** L'esperance de vie passe de 52 ans (1960) a 77 ans (2024). La mortalite infantile chute de 150 a 18/1000. Les depenses de sante restent faibles (3.5% PIB).
-
-#### Sante - Reel vs Predit
-![Sante Pred](kaggle_kernel/out/sante_pred.png)
-> **Esperance de vie.** Progression constante de 55 ans (1971) a 77 ans (2023). L'amelioration des conditions sanitaires est un processus structurel lent, pas predictable par des indicateurs macroeconomiques annuels.
-
-#### Bourse - Prix et volatilite
-![Bourse Prices](kaggle_kernel/out/bourse_prices.png)
-> **Bourse de Casablanca.** Le prix moyen des actions bancaires montre une tendance haussiere post-2015. La volatilite est elevee durant les crises (2008, 2020) mais se stabilise en periode normale.
-
-#### Bourse - Regimes
-![Bourse Regime](kaggle_kernel/out/bourse_regime.png)
-> **Regimes boursiers.** Classification en 3 regimes: haussier (vert), stable (bleu), baissier (rouge). Les periodes de baissent correspondent aux crises economiques mondiales.
-
-#### Bourse - Reel vs Predit
-![Bourse Pred](kaggle_kernel/out/bourse_pred.png)
-> **Prix boursier predit.** Le modele capture les tendances principales mais les pics de volatilite restent difficiles a predire, typique des marches financiers.
-
-#### Inflation et stabilite des prix
-![Taux Inflation](kaggle_kernel/out/taux_inflation.png)
-> **Inflation au Maroc.** L'inflation CPI se stabilise autour de 2-3% apres les annees 1990. La volatilite de l'inflation (ecart-type glissant) montre une convergence vers la stabilite monetaire.
-
-#### Inflation : Reel vs Predit
-![Taux Pred](kaggle_kernel/out/taux_pred.png)
-> **Inflation predite.** Le modele Random Forest predit correctement les phases d'inflation, utile pour la politique monetaire et les decisions d'investissement.
-
----
-
-## Data Quality & Interpolation
-
-### Problem: Fake Straight Lines
-
-The raw dataset (`indicators_clean.csv`) contains **sparse data** for early years (1960-1980). When missing values are filled with linear interpolation (`zoo::na.approx`), this creates **fake straight horizontal lines** in charts.
-
-```
-1960 ─────────────────── 1980 ───── 1990 ───── 2000
-      [interpolated]      [real data starts here]
-      straight lines      actual trends
-```
-
-### Solution: Filter by Data Availability
-
-Charts now exclude years where data is interpolated, showing only years with **real observations**:
-
-| Chart | Before | After | Reason |
-|-------|--------|-------|--------|
-| Trends (4 indicators) | 1960-2024 | **1980-2024** | GDP, unemployment data sparse before 1980 |
-| Sector Composition | 1960-2024 | **1980-2024** | Sector shares incomplete before 1980 |
-| Gini Coefficient | 1960-2024 | **1990-2024** | Gini data only available from 1990 |
-| Education | 1960-2024 | **1971-2024** | World Bank education data starts 1971 |
-
-### Data Availability by Indicator
-
-| Indicator | Code | 1960s | 1970s | 1980s | 1990s | 2000s | 2010s | 2020s |
-|-----------|------|-------|-------|-------|-------|-------|-------|-------|
-| GDP (nominal) | NGDPD | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| GDP Growth | NGDP_RPCH | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Inflation | PCPIPCH | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Unemployment | LUR | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Debt/GDP | GGXWDG_NGDP | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| Trade Balance | BCA_NGDPD | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Gini | SI.POV.GINI | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| Primary Enrollment | SE.PRM.ENRR | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Literacy Rate | SE.ADT.LITR.ZS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+## Data Quality
+
+| Indicator | 1960s | 1970s | 1980s | 1990s | 2000s+ |
+|-----------|-------|-------|-------|-------|--------|
+| GDP | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| Inflation | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| Unemployment | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| Gini | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Education | ❌ | ✅ | ✅ | ✅ | ✅ |
 
 > ✅ = real data | ⚠️ = partial/interpolated | ❌ = no data
 
-### Interpolation Method
-
-```r
-# Original: linear interpolation (creates fake straight lines)
-macro[[c]] <- zoo::na.approx(v, na.rm = FALSE)
-
-# Problem: if values [10, NA, NA, NA, 50], result is [10, 20, 30, 40, 50]
-# This creates a perfect straight line that never existed in reality
-
-# Solution: filter charts to years with real data
-master %>% filter(year >= 1980)  # exclude interpolated years
-```
-
-### Why This Matters
-
-| Issue | Impact | Solution |
-|-------|--------|----------|
-| Interpolation creates fake trends | Charts misleading | Filter to real data years |
-| 1960-1980 data mostly missing | Straight lines in plots | Start charts from 1980 |
-| Gini only from 1990 | Empty early years | Start Gini chart from 1990 |
-| Education from 1971 | World Bank coverage | Use real education CSV |
+Charts filter early years to avoid fake interpolated lines.
 
 ---
 
-## Data Sources
+## Charts Gallery
 
-| Source | Coverage | Indicators |
-|--------|----------|------------|
-| World Bank (WDI) | 1960-2024 | GDP, inflation, debt, trade, population, education |
-| World Bank (Education) | 1971-2024 | Primary/secondary/tertiary enrollment, spending, literacy |
-| IMF (WEO) | 1980-2029 | GDP forecasts, fiscal balance, current account |
-| Our World in Data | 1960-2023 | Energy, CO2, health, demographics |
-| UNDP | 2000-2021 | HDI, inequality, poverty |
-| Casablanca Stock Exchange | 2010-2024 | Bank stock prices (Attijariwafa, BMCE, CIH) |
+| GDP Growth | Inflation | Trade |
+|------------|-----------|-------|
+| ![GDP](economic_data/charts/01_gdp_growth.png) | ![Inflation](economic_data/charts/02_inflation.png) | ![Trade](economic_data/charts/03_trade.png) |
 
----
+| Unemployment | Population | Fiscal |
+|--------------|------------|--------|
+| ![Unemp](economic_data/charts/04_unemployment.png) | ![Pop](economic_data/charts/05_population.png) | ![Fiscal](economic_data/charts/06_fiscal.png) |
 
-## Key Results
+| Actual vs Predicted | Correlation | Dashboard |
+|---------------------|-------------|-----------|
+| ![Pred](economic_data/charts/07_actual_vs_predicted.png) | ![Corr](economic_data/charts/08_correlation.png) | ![Dash](economic_data/charts/09_dashboard.png) |
 
-| Metric | Ridge (alpha=10) | Lasso (alpha=0.1) | ARIMA |
-|--------|------------------|-------------------|-------|
-| Train R2 | 0.022 | 0.016 | ~0.85 |
-| Test R2 | -0.249 | -0.319 | ~0.10 |
-| Gap (overfit) | **0.27** (faible) | **0.34** (acceptable) | ~0.75 |
-| RMSE | 4.05% | 4.16% | ~3.5% |
-| Features | 4/4 | 4/4 (L1 selection) | Univarie |
-| Anti-overfit | **Oui** (L2) | **Oui** (L1) | Non |
-
-**Conclusion :** Ridge est le meilleur modele anti-overfit (gap=0.27). Lasso fait de la selection de features mais est legerement moins performant. ARIMA est meilleur en univarie mais ne capture pas les interactions. Ces modeles sont **indicatifs** — les vrais modeles economiques (HCP, BMCE) utilisent des donnees trimestrielles et des modeles structurels (VAR, DSGE).
-
-> **v22 Update:** Le notebook R utilise maintenant les donnees education reelles du World Bank (`education_real.csv`). Les graphiques montrent de vraies courbes d'inscription (primaire 117%, secondaire 88%, tertiaire 48% en 2023) au lieu de donnees interpolatees.
-
----
-
-## ZenML MLOps Pipeline (Kubernetes)
-
-End-to-end ML pipeline running on Kubernetes with MLflow experiment tracking.
-
-### Architecture
-```
-World Bank API  -->  K8s Pod (fetch_and_prepare)  -->  K8s Pod (train_and_log)  -->  MLflow
-                      |                                    |
-                      Fetch 12 indicators               Ridge Regression
-                      (1999-2026, 28 years)             alpha=100, StandardScaler
-```
-
-### Stack
-| Component | Name | Config |
-|-----------|------|--------|
-| Orchestrator | `k8s_orch` | Kind cluster `zenml-cluster` |
-| Artifact Store | `shared_store_linux` | `/mnt/data` (hostPath volume) |
-| Container Registry | `local_registry` | `localhost:5001` |
-| Experiment Tracker | `mlflow_tracker` | `http://localhost:5000` |
-
-### Results
-
-| Metric | Basic (WB) | Enhanced (HCP+WB+IMF) | **Optimal (Honest)** |
-|--------|------------|----------------------|----------------------|
-| **R2** | -0.1183 | +0.1985 | **+0.3957** |
-| **RMSE** | 4.1327 | 3.9659 | **3.4436** |
-| **Samples** | 27 | 28 | 28 |
-| **Features** | 8 | 40+ | 31 |
-| **Best Model** | Ridge(a=100) | Ridge(a=10) | **SVR_linear** |
-| **Sources** | World Bank | HCP+WB+IMF | HCP+WB+IMF |
-
-**Note:** R2=0.91 was achieved using GDP components as features — this is data leakage (identity function). The honest R2 with external predictors is ~0.40.
-
-#### Actual vs Predicted (GDP Real Growth %) - Honest (SVR_linear, R2=0.40)
-
-| Year | Actual | Predicted | Error |
-|------|--------|-----------|-------|
-| 2020 | -7.18% | -6.68% | +0.50 |
-| 2021 | 8.15% | 0.53% | -7.63 |
-| 2022 | 1.81% | -1.89% | -3.71 |
-| 2023 | 3.66% | 2.71% | -0.95 |
-| 2024 | 3.79% | 1.41% | -2.38 |
-| 2025 | 4.60% | 5.08% | +0.49 |
-| 2026 | 4.60% | 2.58% | -2.02 |
-
-**Interpretation:** With only external predictors (World Bank + IMF), R2=0.40 is the realistic ceiling. GDP growth is driven by rainfall, global trade shocks, and geopolitics — factors not captured in standard economic indicators.
-
-### Dashboard
-- **ZenML**: http://localhost:8080
-- **MLflow**: http://localhost:5000
-
-### Run Locally
-```bash
-cd zenml
-pip install zenml
-zenml init
-zenml integration install kubernetes mlflow
-python run_k8s.py
-```
-
-### Available Pipelines
-
-| Pipeline | Script | Data Sources | Features | Best R2 |
-|----------|--------|--------------|----------|---------|
-| Basic K8s | `run_k8s.py` | World Bank | 8 | -0.12 |
-| Enhanced | `run_enhanced.py` | HCP+WB+IMF | 40+ | +0.20 |
-| Optimal | `optimize_honest.py` | HCP+WB+IMF (no leakage) | 31 | **+0.40** |
-
----
-
-### Charts
-
-#### Enhanced Data Charts (HCP+WB+IMF)
-
-| Chart | File |
-|-------|------|
-| GDP Growth | ![GDP](economic_data/charts/01_gdp_growth.png) |
-| Inflation | ![Inflation](economic_data/charts/02_inflation.png) |
-| Trade Balance | ![Trade](economic_data/charts/03_trade.png) |
-| Unemployment | ![Unemployment](economic_data/charts/04_unemployment.png) |
-| Population | ![Population](economic_data/charts/05_population.png) |
-| Government Finance | ![Fiscal](economic_data/charts/06_fiscal.png) |
-| Actual vs Predicted | ![Pred](economic_data/charts/07_actual_vs_predicted.png) |
-| Correlation | ![Corr](economic_data/charts/08_correlation.png) |
-| Dashboard | ![Dash](economic_data/charts/09_dashboard.png) |
-| Model Performance | ![Perf](economic_data/charts/10_model_performance.png) |
-
-#### Real Data Charts (World Bank Education)
-
-| Chart | File |
-|-------|------|
-| Education Enrollment | ![Edu](economic_data/charts_real/01_education_real.png) |
-| Education Spending | ![Spend](economic_data/charts_real/02_education_spending_real.png) |
-| GDP (real) | ![GDP](economic_data/charts_real/03_gdp_real.png) |
-| Unemployment (real) | ![Unemp](economic_data/charts_real/04_unemployment_real.png) |
-| Inflation (real) | ![Infl](economic_data/charts_real/05_inflation_real.png) |
-| Trade (real) | ![Trade](economic_data/charts_real/06_trade_real.png) |
-| Dashboard (real) | ![Dash](economic_data/charts_real/07_dashboard_real.png) |
-
-### Key Insights
-
-1. **GDP Growth:** Average 3.73%, low volatility 2.80%. COVID-19 caused -7.18% shock in 2020, followed by +8.15% rebound in 2021.
-
-2. **Trade Deficit:** Structural deficit of -8.3% of GDP (imports > exports).
-
-3. **Unemployment:** 10.1% average, despite growth — jobless growth phenomenon.
-
-4. **Inflation:** Rising from 1.73% to 3.03% in last 5 years.
-
-5. **Population:** Growth slowing to 1.13%/year, urbanization 63.1%, fertility 2.21.
-
-6. **Best Predictors:** FDI (+0.42), remittances (+0.30), labor force participation (+0.27).
-
-### Model Comparison
-
-| Model | R2 | RMSE | Gap |
-|-------|-----|------|-----|
-| Ridge | +0.20 | 3.97 | 0.27 |
-| Lasso | +0.15 | 4.10 | 0.35 |
-| ElasticNet | +0.18 | 4.05 | 0.30 |
-| Random Forest | +0.12 | 4.25 | 0.85 |
-| GBM | +0.15 | 4.20 | 0.90 |
-| **SVR (linear)** | **+0.40** | **3.44** | **0.55** |
-
-### Stack Configuration
-
-| Component | Type | Value |
-|-----------|------|-------|
-| Orchestrator | Kubernetes | Kind cluster |
-| Artifact Store | Local path | `/mnt/data` |
-| Container Registry | Docker | `localhost:5001` |
-| Experiment Tracker | MLflow | Remote server |
+| Education (Real) | Education Spending (Real) | Model Performance |
+|------------------|---------------------------|-------------------|
+| ![Edu](economic_data/charts_real/01_education_real.png) | ![Spend](economic_data/charts_real/02_education_spending_real.png) | ![Perf](economic_data/charts/10_model_performance.png) |
 
 ---
 
@@ -556,42 +147,44 @@ python run_k8s.py
 
 ### Locally
 ```bash
-# 1. Install dependencies
-pip install kaggle pandas pyspark
-R -e "install.packages(c('tidyverse','forecast','randomForest','caret','glmnet','corrplot','psych','ineq','DescTools','scales','rmarkdown'))"
+# Clone
+git clone https://github.com/Youssef-AMARZOU/morocco-economic-pipeline.git
+cd morocco-economic-pipeline
 
-# 2. Run ETL
+# Python ETL
+pip install -r requirements.txt
 python run_all.py
 
-# 3. Run R analysis
-Rscript maroc_pipeline.R
+# R analysis
+Rscript kaggle_kernel/maroc_pipeline.R
 ```
 
 ---
 
-## Charts & Insights Gallery
+## Data Sources
 
-Real data visualizations (10 charts) from Morocco economic analysis (1999-2026).
+| Source | Coverage | Indicators |
+|--------|----------|------------|
+| World Bank (WDI) | 1960-2024 | GDP, inflation, debt, trade, population |
+| World Bank (Education) | 1971-2024 | Enrollment, spending, literacy |
+| IMF (WEO) | 1980-2029 | GDP forecasts, fiscal balance |
+| HCP (data.gov.ma) | 1999-2026 | 63 XLSX files (IPC, IPP, employment) |
+| Casablanca SE | 2010-2024 | Bank stock prices |
 
-### [Charts Dataset on Kaggle](https://www.kaggle.com/datasets/amarzouyoussef/morocco-charts-v2)
-
-| Chart | Description |
-|-------|-------------|
-| ![GDP](economic_data/charts/01_gdp_growth.png) | GDP Growth — average 3.73%, COVID shock -7.18% |
-| ![Inflation](economic_data/charts/02_inflation.png) | Inflation (CPI) — rising 1.73% → 3.03% |
-| ![Trade](economic_data/charts/03_trade.png) | Trade Balance — structural deficit -8.3% |
-| ![Unemployment](economic_data/charts/04_unemployment.png) | Unemployment — 10.1% average (jobless growth) |
-| ![Population](economic_data/charts/05_population.png) | Population — 1.13%/year growth, urbanization 63% |
-| ![Fiscal](economic_data/charts/06_fiscal.png) | Government Finance — debt 50.5% of GDP |
-| ![Actual vs Predicted](economic_data/charts/07_actual_vs_predicted.png) | Model predictions — SVR_linear R2=0.40 |
-| ![Correlation](economic_data/charts/08_correlation.png) | Correlation matrix — 117 features |
-| ![Dashboard](economic_data/charts/09_dashboard.png) | Dashboard — 4 key indicators |
-| ![Model Performance](economic_data/charts/10_model_performance.png) | Model comparison — SVR_linear best |
-| ![Education Real](economic_data/charts_real/01_education_real.png) | Education enrollment (real WB data) — primary 117%, secondary 88% |
-| ![Education Spending](economic_data/charts_real/02_education_spending_real.png) | Education spending & literacy (real) — 5-6% GDP, 75% literacy |
+**Total: 130 features, 28 years (1999-2026)**
 
 ---
 
 ## License
 
 Apache 2.0
+
+---
+
+<div align="center">
+
+[![ProfileVisits](https://komarev.com/ghpvc/?username=Youssef-AMARZOU&label=Profile+Visits&color=blue&style=for-the-badge)](https://github.com/Youssef-AMARZOU)
+
+![footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=120&section=footer)
+
+</div>
