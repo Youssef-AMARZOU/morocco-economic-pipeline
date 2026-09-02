@@ -381,6 +381,99 @@ python run_k8s.py
 
 ---
 
+## ZenML Kubernetes Pipeline (MLOps)
+
+### Data Sources (Real, No Leakage)
+
+| Source | Type | Indicators | Years |
+|--------|------|------------|-------|
+| World Bank (WDI) | API | 25 indicators | 1999-2026 |
+| IMF WEO | API | GDP forecasts | 1999-2026 |
+| HCP (data.gov.ma) | XLSX | 63 files (IPC, IPP, employment) | 1999-2026 |
+
+**Total: 130 features, 28 years (1999-2026)**
+
+### Results
+
+| Metric | Basic (WB) | Enhanced (HCP+WB+IMF) | **Optimal (Real Data)** |
+|--------|------------|----------------------|------------------------|
+| **R2** | -0.1183 | +0.1985 | **+0.3957** |
+| **RMSE** | 4.1327 | 3.9659 | **3.4436** |
+| **Samples** | 27 | 28 | 28 |
+| **Features** | 8 | 40+ | 31 |
+| **Best Model** | Ridge(a=100) | Ridge(a=10) | **SVR_linear** |
+| **Sources** | World Bank | HCP+WB+IMF | HCP+WB+IMF |
+
+**Note:** R2=0.40 is the realistic ceiling. GDP growth is driven by rainfall, tourism, global trade — factors not captured in standard datasets.
+
+### Charts
+
+#### GDP Growth
+![GDP Growth](enhanced_data/charts/01_gdp_growth.png)
+
+#### Inflation (CPI)
+![Inflation](enhanced_data/charts/02_inflation.png)
+
+#### Trade Balance
+![Trade](enhanced_data/charts/03_trade.png)
+
+#### Unemployment
+![Unemployment](enhanced_data/charts/04_unemployment.png)
+
+#### Population
+![Population](enhanced_data/charts/05_population.png)
+
+#### Government Finance
+![Fiscal](enhanced_data/charts/06_fiscal.png)
+
+#### Actual vs Predicted
+![Actual vs Predicted](enhanced_data/charts/07_actual_vs_predicted.png)
+
+#### Correlation Matrix
+![Correlation](enhanced_data/charts/08_correlation.png)
+
+#### Dashboard
+![Dashboard](enhanced_data/charts/09_dashboard.png)
+
+#### Model Performance
+![Model Performance](enhanced_data/charts/10_model_performance.png)
+
+### Key Insights
+
+1. **GDP Growth:** Average 3.73%, low volatility 2.80%. COVID-19 caused -7.18% shock in 2020, followed by +8.15% rebound in 2021.
+
+2. **Trade Deficit:** Structural deficit of -8.3% of GDP (imports > exports).
+
+3. **Unemployment:** 10.1% average, despite growth — jobless growth phenomenon.
+
+4. **Inflation:** Rising from 1.73% to 3.03% in last 5 years.
+
+5. **Population:** Growth slowing to 1.13%/year, urbanization 63.1%, fertility 2.21.
+
+6. **Best Predictors:** FDI (+0.42), remittances (+0.30), labor force participation (+0.27).
+
+### Model Comparison
+
+| Model | R2 | RMSE | Gap |
+|-------|-----|------|-----|
+| Ridge | +0.20 | 3.97 | 0.27 |
+| Lasso | +0.15 | 4.10 | 0.35 |
+| ElasticNet | +0.18 | 4.05 | 0.30 |
+| Random Forest | +0.12 | 4.25 | 0.85 |
+| GBM | +0.15 | 4.20 | 0.90 |
+| **SVR (linear)** | **+0.40** | **3.44** | **0.55** |
+
+### Stack Configuration
+
+| Component | Type | Value |
+|-----------|------|-------|
+| Orchestrator | Kubernetes | Kind cluster |
+| Artifact Store | Local path | `/mnt/data` |
+| Container Registry | Docker | `localhost:5001` |
+| Experiment Tracker | MLflow | Remote server |
+
+---
+
 ## How to Run
 
 ### On Kaggle (recommended)
