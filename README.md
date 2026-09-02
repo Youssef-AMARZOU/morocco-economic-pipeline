@@ -8,7 +8,7 @@ End-to-end socio-economic-financial analysis pipeline for Morocco — from raw d
 
 | Resource | Link |
 |----------|------|
-| **Dataset** (22 CSVs) | [amarzouyoussef/economie-maroc-rasd](https://www.kaggle.com/datasets/amarzouyoussef/economie-maroc-rasd) |
+| **Dataset** (23 CSVs + charts) | [amarzouyoussef/economie-maroc-rasd](https://www.kaggle.com/datasets/amarzouyoussef/economie-maroc-rasd) |
 | **Charts & Insights V2** | [amarzouyoussef/morocco-charts-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-charts-v2) |
 | **Analysis V2** (CSV + HCP) | [amarzouyoussef/morocco-economic-analysis-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-economic-analysis-v2) |
 | **R Kernel** (notebook, linked to GitHub) | [amarzouyoussef/maroc-pipeline-r](https://www.kaggle.com/code/amarzouyoussef/maroc-pipeline-r) |
@@ -33,7 +33,8 @@ Raw Data (WB, IMF, OWID, Casablanca SE)
    [Python ETL]  fetch_wb.py / fetch_owid.py / fetch_imf2.py
         |         clean.py / transform.py / merge.py / load.py
         v
-   22 clean CSVs  -->  Kaggle Dataset (economie-maroc-rasd)
+   23 clean CSVs  -->  Kaggle Dataset (economie-maroc-rasd)
+   (includes education_real.csv - real World Bank education data)
         |
    [R Kernel]  maroc_pipeline.R  (Kaggle R notebook)
         |         11 sections: Ingest → Clean → Join → EDA → Stats
@@ -68,7 +69,7 @@ Raw Data (WB, IMF, OWID, Casablanca SE)
 
 ## R Analysis Pipeline (`maroc_pipeline.R`)
 
-The R notebook runs 11 sections on Kaggle:
+The R notebook runs 12 sections on Kaggle (v22 — real education data integrated):
 
 ### 1. Ingestion
 Reads 4 source CSVs: `indicators_clean.csv`, `dim_indicators.csv`, `bank_prices.csv`, `benchmark_morocco.csv`.
@@ -252,17 +253,13 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 ![Social Pred](kaggle_kernel/out/social_pred_pauvrete.png)
 > **Pauvrete au Maroc.** Tendance descendante continue de 15% (1990) a 4% (2020). Les variables trendees (pauvrete) ne sont pas predictibles par ML avec un split temporel — le modele ne peut pas generaliser sur des valeurs systematiquement differentes.
 
-#### Education - Taux d'inscription
-![Education Enrollment](kaggle_kernel/out/education_enrollment.png)
-> **Inscription par niveau.** L'inscription primaire atteint 99%, secondaire 65%, tertiaire 35%. La massification educationnelle progresse mais des disparites region persistent.
+#### Education - Taux d'inscription (donnees reelles World Bank)
+![Education Enrollment Real](enhanced_data/charts_real/01_education_real.png)
+> **Inscriptions scolaires (donnees reelles).** L'inscription primaire depasse 116% (taux brut, incluant les eleves ages), secondaire 88%, tertiaire 48%. La massification educationnelle progresse fortement depuis 2000.
 
-#### Education - Alphabetisation et financement
-![Education Literacy](kaggle_kernel/out/education_literacy_spending.png)
-> **Alphabetisation et depenses.** Le taux d'alphabetisation passe de 40% (1980) a 75% (2024). Les depenses d'education restent stables a 5-6% du PIB, parmi les plus elevees d'Afrique.
-
-#### Education - Reel vs Predit
-![Education Pred](kaggle_kernel/out/education_pred.png)
-> **Inscription secondaire.** Croissance reguliere de 25% (1971) a 70% (2023). Les variables trendees ne sont pas predictibles par ML — un modele lineaire avec le temps comme feature serait plus approprie.
+#### Education - Depenses et alphabetisation (donnees reelles)
+![Education Spending Real](enhanced_data/charts_real/02_education_spending_real.png)
+> **Depenses et alphabetisation (reel).** Les depenses d'education oscillent entre 4.5-6.3% du PIB. Le taux d'alphabetisation passe de 30% (1982) a 75% (2024). Progres significatif mais des lacunes persistent.
 
 #### Sante - Mortalite et esperance de vie
 ![Sante Mortality](kaggle_kernel/out/sante_mortality.png)
@@ -299,6 +296,7 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 | Source | Coverage | Indicators |
 |--------|----------|------------|
 | World Bank (WDI) | 1960-2024 | GDP, inflation, debt, trade, population, education |
+| World Bank (Education) | 1971-2024 | Primary/secondary/tertiary enrollment, spending, literacy |
 | IMF (WEO) | 1980-2029 | GDP forecasts, fiscal balance, current account |
 | Our World in Data | 1960-2023 | Energy, CO2, health, demographics |
 | UNDP | 2000-2021 | HDI, inequality, poverty |
@@ -318,6 +316,8 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 | Anti-overfit | **Oui** (L2) | **Oui** (L1) | Non |
 
 **Conclusion :** Ridge est le meilleur modele anti-overfit (gap=0.27). Lasso fait de la selection de features mais est legerement moins performant. ARIMA est meilleur en univarie mais ne capture pas les interactions. Ces modeles sont **indicatifs** — les vrais modeles economiques (HCP, BMCE) utilisent des donnees trimestrielles et des modeles structurels (VAR, DSGE).
+
+> **v22 Update:** Le notebook R utilise maintenant les donnees education reelles du World Bank (`education_real.csv`). Les graphiques montrent de vraies courbes d'inscription (primaire 117%, secondaire 88%, tertiaire 48% en 2023) au lieu de donnees interpolatees.
 
 ---
 
@@ -516,6 +516,8 @@ Real data visualizations (10 charts) from Morocco economic analysis (1999-2026).
 | ![Correlation](enhanced_data/charts/08_correlation.png) | Correlation matrix — 117 features |
 | ![Dashboard](enhanced_data/charts/09_dashboard.png) | Dashboard — 4 key indicators |
 | ![Model Performance](enhanced_data/charts/10_model_performance.png) | Model comparison — SVR_linear best |
+| ![Education Real](enhanced_data/charts_real/01_education_real.png) | Education enrollment (real WB data) — primary 117%, secondary 88% |
+| ![Education Spending](enhanced_data/charts_real/02_education_spending_real.png) | Education spending & literacy (real) — 5-6% GDP, 75% literacy |
 
 ---
 
