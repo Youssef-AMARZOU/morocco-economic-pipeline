@@ -126,7 +126,7 @@ Merges macroeconomic indicators with bank stock prices and benchmark data into a
 
 #### ARIMA Forecast
 ![ARIMA](kaggle_kernel/out/arima.png)
-> **Projection ARIMA du PIB.** ARIMA(1,1,1) model forecasts GDP through 2030. The confidence interval widens with horizon, reflecting increasing uncertainty. Base case projects ~4.0% annual growth, reaching ~$180B by 2030. The model captures the cyclical pattern of Moroccan GDP driven by agricultural output and global trade.
+> **Projection ARIMA du PIB.** ARIMA(2,1,1) model forecasts GDP through 2030. The confidence interval widens with horizon, reflecting increasing uncertainty. Base case projects ~4.0% annual growth, reaching ~$180B by 2030. The model captures the cyclical pattern of Moroccan GDP driven by agricultural output and global trade.
 
 ### 6. Growth Scenarios
 ![Scenarios](kaggle_kernel/out/scenarios.png)
