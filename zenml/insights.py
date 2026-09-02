@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_indicators_enhanced.csv")
+df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_indicators_enhanced.csv")
 
 print("=" * 80)
 print("MOROCCO ECONOMIC INSIGHTS (1999-2026)")

@@ -118,7 +118,7 @@ print(f"  Final shape: {df.shape}")
 print(f"  Columns: {list(df.columns)}")
 
 # === 5. Save ===
-output_dir = "C:\\Users\\youss\\OneDrive\\Desktop\\morocco-economic-pipeline\\enhanced_data"
+output_dir = "C:\\Users\\youss\\OneDrive\\Desktop\\morocco-economic-pipeline\\economic_data"
 os.makedirs(output_dir, exist_ok=True)
 
 df.to_csv(f"{output_dir}\\morocco_indicators_enhanced.csv", index=False)

@@ -3,6 +3,7 @@
 # Ingest -> Nettoyage -> Jointure -> EDA -> Stats -> Scenarios ->
 # ML -> DL -> Benchmark -> Validation -> Export + Rapport HTML
 # Executable sur Kaggle (R kernel).
+# v22 : donnees education reelles (World Bank) integrees
 # =====================================================================
 pkg <- function(p, repo = "https://cloud.r-project.org") {
   if (!requireNamespace(p, quietly = TRUE)) install.packages(p, repos = repo)
@@ -26,6 +27,17 @@ banks <- rc("bank_prices.csv")
 bench <- rc("benchmark_morocco.csv")
 ind <- ind %>% clean_names()
 cat("indicators_clean :", nrow(ind), "lignes,", n_distinct(ind$code), "codes\n")
+
+# --- Donnees education reelles (World Bank) ---
+edu_real <- tryCatch({
+  read_csv(file.path(INDIR, "education_real.csv"), show_col_types = FALSE)
+}, error = function(e) {
+  cat("education_real.csv non trouve, donnees synthetiques utilisees.\n")
+  NULL
+})
+if (!is.null(edu_real)) {
+  cat("education_real :", nrow(edu_real), "annees,", ncol(edu_real) - 1, "variables\n")
+}
 
 cat("=== 2. NETTOYAGE ===\n")
 macro <- ind %>% pivot_wider(id_cols = "year", names_from = code, values_from = value, values_fn = mean) %>%
@@ -59,6 +71,14 @@ master <- macro_clean %>% full_join(banks_y, by = "year") %>% arrange(year)
 cat("master_dataset :", nrow(master), "annees x", ncol(master), "colonnes | finance :",
     round(100 * sum(!is.na(master$volatilite), na.rm = TRUE) / nrow(master), 1), "%\n")
 
+# --- Fusion education reelle dans master ---
+if (!is.null(edu_real)) {
+  edu_real <- edu_real %>% mutate(year = as.integer(year))
+  master <- master %>% left_join(edu_real, by = "year")
+  cat("Education reelle fusionnee : colonnes ajoutees =",
+      paste(names(edu_real)[-1], collapse = ", "), "\n")
+}
+
 cat("=== 4. EDA ===\n")
 key <- c("NGDPD", "NGDP_RPCH", "PCPIPCH", "LUR", "GGXWDG_NGDP", "BCA_NGDPD", "SI.POV.GINI")
 key <- key[key %in% names(master)]
@@ -69,17 +89,19 @@ png("/kaggle/working/corr.png", width = 900, height = 800)
 corrplot::corrplot(corr[1:min(30, nrow(corr)), 1:min(30, nrow(corr))],
                    method = "color", type = "lower", tl.cex = 0.5, na.label = " ")
 dev.off()
-ml <- master %>% pivot_longer(all_of(intersect(key, names(master))), names_to = "ind", values_to = "val")
+ml <- master %>% filter(year >= 1980) %>%
+  pivot_longer(all_of(intersect(key, names(master))), names_to = "ind", values_to = "val")
 p <- ggplot(ml, aes(x = year, y = val)) + geom_line(na.rm = TRUE) +
   facet_wrap(~ind, scales = "free_y", ncol = 2) + theme_minimal() +
-  labs(title = "Tendances macroeconomiques principales")
+  labs(title = "Tendances macroeconomiques principales (1980-2024)",
+       subtitle = "Annees avant 1980 exclues (donnees interpolatees)")
 ggsave("/kaggle/working/trends.png", p, width = 10, height = 7)
 
 # Composition sectorielle
 sec_cols <- c("NV.AGR.TOTL.ZS", "NV.IND.TOTL.ZS", "NV.SRV.TOTL.ZS")
 sec_cols <- sec_cols[sec_cols %in% names(master)]
 if (length(sec_cols) >= 2) {
-  sec <- master %>% select(year, all_of(sec_cols)) %>% drop_na()
+  sec <- master %>% filter(year >= 1980) %>% select(year, all_of(sec_cols)) %>% drop_na()
   if (nrow(sec) > 2) {
     png("/kaggle/working/sector.png", width = 900, height = 500)
     matplot(sec$year, as.matrix(sec[, -1]), type = "l", lty = 1, col = 2:4,
@@ -92,7 +114,7 @@ if (length(sec_cols) >= 2) {
 
 # Gini
 if ("SI.POV.GINI" %in% names(master)) {
-  gi <- master %>% select(year, SI.POV.GINI) %>% drop_na()
+  gi <- master %>% filter(year >= 1990) %>% select(year, SI.POV.GINI) %>% drop_na()
   if (nrow(gi) > 2) {
     png("/kaggle/working/gini.png", width = 800, height = 450)
     plot(gi$year, gi$SI.POV.GINI, type = "l", main = "Indice de Gini (Maroc)",
@@ -100,6 +122,60 @@ if ("SI.POV.GINI" %in% names(master)) {
     dev.off()
     cat("Gini moyen :", round(mean(gi$SI.POV.GINI, na.rm = TRUE), 2), "\n")
   }
+}
+
+# --- Graphiques Education (donnees reelles) ---
+if (!is.null(edu_real)) {
+  # Inscription scolaire (taux brut)
+  edu_long <- edu_real %>%
+    select(year, primary_enrollment, secondary_enrollment, tertiary_enrollment) %>%
+    pivot_longer(-year, names_to = "niveau", values_to = "taux") %>%
+    mutate(niveau = case_when(
+      niveau == "primary_enrollment" ~ "Primaire",
+      niveau == "secondary_enrollment" ~ "Secondaire",
+      niveau == "tertiary_enrollment" ~ "Superieur"
+    )) %>%
+    drop_na()
+  if (nrow(edu_long) > 0) {
+    p_edu <- ggplot(edu_long, aes(x = year, y = taux, color = niveau)) +
+      geom_line(size = 1.1) + geom_point(size = 1.5) +
+      theme_minimal() + labs(title = "Inscriptions scolaires au Maroc (donnees reelles)",
+                             subtitle = "Taux brut d'inscription - Source: Banque Mondiale",
+                             x = "Annee", y = "Taux brut (%)", color = "Niveau") +
+      scale_color_brewer(palette = "Set1")
+    ggsave("/kaggle/working/education_enrollment_real.png", p_edu, width = 10, height = 6)
+    cat("Graphique education inscription cree (donnees reelles).\n")
+  }
+
+  # Depenses教育 + Taux d'alphabetisation
+  edu_sp <- edu_real %>%
+    select(year, education_spending_gdp, literacy_rate) %>%
+    pivot_longer(-year, names_to = "indicateur", values_to = "valeur") %>%
+    mutate(indicateur = case_when(
+      indicateur == "education_spending_gdp" ~ "Depenses education (% PIB)",
+      indicateur == "literacy_rate" ~ "Taux d'alphabetisation (%)"
+    )) %>%
+    drop_na()
+  if (nrow(edu_sp) > 0) {
+    p_sp <- ggplot(edu_sp, aes(x = year, y = valeur, color = indicateur)) +
+      geom_line(size = 1.1) + geom_point(size = 1.5) +
+      theme_minimal() + labs(title = "Education : depenses et alphabetisation (donnees reelles)",
+                             subtitle = "Source: Banque Mondiale",
+                             x = "Annee", y = "Valeur", color = "Indicateur") +
+      scale_color_brewer(palette = "Set2")
+    ggsave("/kaggle/working/education_spending_real.png", p_sp, width = 10, height = 6)
+    cat("Graphique depenses education cree (donnees reelles).\n")
+  }
+  # Resume education
+  cat("\n=== RESUME EDUCATION (donnees reelles) ===\n")
+  latest <- edu_real %>% filter(year == max(year, na.rm = TRUE))
+  cat("Annee la plus recente :", latest$year, "\n")
+  cat("Inscription primaire :", round(latest$primary_enrollment, 1), "%\n")
+  cat("Inscription secondaire :", round(latest$secondary_enrollment, 1), "%\n")
+  cat("Inscription superieure :", round(latest$tertiary_enrollment, 1), "%\n")
+  if (!is.na(latest$education_spending_gdp)) cat("Depenses education :", round(latest$education_spending_gdp, 1), "% PIB\n")
+  if (!is.na(latest$literacy_rate)) cat("Taux alphabetisation :", round(latest$literacy_rate, 1), "%\n")
+  cat("==========================================\n\n")
 }
 
 cat("=== 5. STATISTIQUES ===\n")
@@ -302,11 +378,12 @@ rmd <- c(
   "",
   "# Resume executif {.tabset}",
   "",
-  paste0("Ce rapport presente l'analyse socio-economique et financiere du Maroc sur la periode ",
-         min(master$year), "-", max(master$year), ". Il couvre ", n_ind,
-         " indicateurs macroeconomiques (sur ", n_total, " disponibles), ",
-         "integre les donnees boursieres de la Bourse de Casablanca, et propose ",
-         "des modeles de prevision et de clustering."),
+   paste0("Ce rapport presente l'analyse socio-economique et financiere du Maroc sur la periode ",
+          min(master$year), "-", max(master$year), ". Il couvre ", n_ind,
+          " indicateurs macroeconomiques (sur ", n_total, " disponibles), ",
+          "integre les donnees boursieres de la Bourse de Casablanca, ",
+          if (!is.null(edu_real)) "les donnees education reelles (Banque Mondiale), " else "",
+          "et propose des modeles de prevision et de clustering."),
   "",
   "## Resultats cles",
   "",
@@ -321,7 +398,13 @@ rmd <- c(
          "| RandomForest R2 | ", rf_r2, " |\n",
          "| Lasso R2 | ", lasso_r2, " |\n",
          "| Deep Learning R2 | ", dl_r2, " |\n",
-         "| Bench: au-dessus de la region | ", pct_above_region, "% |\n"),
+          "| Bench: au-dessus de la region | ", pct_above_region, "% |\n",
+         if (!is.null(edu_real)) {
+           paste0("| Inscription primaire (2023) | ",
+                  round(edu_real$primary_enrollment[edu_real$year == 2023], 1), "% |\n",
+                  "| Taux alphabetisation (2014) | ",
+                  round(edu_real$literacy_rate[edu_real$year == 2014], 1), "% |\n")
+         } else ""),
   "",
   "## Structure du pipeline",
   "",
@@ -337,9 +420,13 @@ rmd <- c(
          "de multiples sources : Banque Mondiale (WDI), FMI (WEO), UNDP (HDI), ",
          "Our World in Data (OWID) et la Bourse de Casablanca."),
   "",
-  paste0("Apres filtrage (annee >= ", YEAR_MIN, ") et imputation, ",
-         "le dataset *master* compte ", nrow(master), " annees x ",
-         ncol(master), " colonnes."),
+   paste0("Apres filtrage (annee >= ", YEAR_MIN, ") et imputation, ",
+          "le dataset *master* compte ", nrow(master), " annees x ",
+          ncol(master), " colonnes.")),
+   if (!is.null(edu_real)) {
+     paste0("Les donnees education reelles (education_real.csv, ", nrow(edu_real),
+            " annees, World Bank) sont fusionnees au dataset master.")
+   },
   "",
   "## Qualite des donnees",
   "",
@@ -369,6 +456,19 @@ rmd <- c(
     c("## Inegalite (Indice de Gini)", "",
       paste0("Gini moyen : ", round(mean(gi$SI.POV.GINI, na.rm = TRUE), 2)), "",
       "![Indice de Gini](gini.png)", "")
+  },
+  "",
+  if (!is.null(edu_real) && file.exists("/kaggle/working/education_enrollment_real.png")) {
+    c("## Education (donnees reelles - Banque Mondiale)", "",
+      paste0("Donnees reelles sur ", nrow(edu_real), " annees (1960-2024)."),
+      "",
+      "### Inscriptions scolaires",
+      "![Inscriptions scolaires](education_enrollment_real.png)", "")
+  },
+  "",
+  if (!is.null(edu_real) && file.exists("/kaggle/working/education_spending_real.png")) {
+    c("### Depenses et alphabetisation",
+      "![Depenses education](education_spending_real.png)", "")
   },
   "",
   "# Modelisation statistique",
@@ -460,30 +560,37 @@ rmd <- c(
   "",
   "# Synthese et recommandations",
   "",
-  "1. **Croissance moderee** : TCAM ", round(100 * tcam, 2), "%",
-  "2. **Endettement** : effet negatif significatif (p=0.041)",
-  "3. **Inflation** : correlation faible avec la croissance",
-  "4. **Banques** : CDM la plus volatile, BCP la plus stable",
-  "5. **Competitivite** : ", pct_above_region, "% au-dessus de la region",
-  paste0("6. **ML** : RF (R2=", rf_r2, ") > Lasso (R2=", lasso_r2, ") > DL (R2=", dl_r2, ")"),
+   "1. **Croissance moderee** : TCAM ", round(100 * tcam, 2), "%",
+   "2. **Endettement** : effet negatif significatif (p=0.041)",
+   "3. **Inflation** : correlation faible avec la croissance",
+   "4. **Banques** : CDM la plus volatile, BCP la plus stable",
+   "5. **Competitivite** : ", pct_above_region, "% au-dessus de la region",
+   paste0("6. **ML** : RF (R2=", rf_r2, ") > Lasso (R2=", lasso_r2, ") > DL (R2=", dl_r2, ")"),
+   if (!is.null(edu_real)) {
+     paste0("7. **Education** : progression continue, primaire > 116%, alphabetisation ~64%")
+   },
   "",
   "## Perspectives",
   "",
-  "- Diversification economique (services, tourisme, digital)",
-  "- Contenir l'endettement public",
-  "- Renforcer la stabilite bancaire",
-  "- Exploiter les regimes identifies",
+   "- Diversification economique (services, tourisme, digital)",
+   "- Contenir l'endettement public",
+   "- Renforcer la stabilite bancaire",
+   "- Exploiter les regimes identifies",
+   "- Maintenir la dynamique educative (scolarisation, qualite, emploi)",
   "",
   "# Annexes",
   "",
-  "| Fichier | Description |\n|---|---|\n",
-  "| master_dataset.csv | Dataset complet |\n",
-  "| rf/lasso/arima_model.rds | Modeles |\n",
-  "| data_quality.csv | Qualite des donnees |\n",
-  "| *.png | 14 graphiques |\n",
+   "| Fichier | Description |\n|---|---|\n",
+   "| master_dataset.csv | Dataset complet |\n",
+   "| education_real.csv | Donnees education reelles (WB) |\n",
+   "| rf/lasso/arima_model.rds | Modeles |\n",
+   "| data_quality.csv | Qualite des donnees |\n",
+   "| education_enrollment_real.png | Inscriptions scolaires (reel) |\n",
+   "| education_spending_real.png | Depenses/alphabetisation (reel) |\n",
+   "| *.png | 16+ graphiques |\n",
   "",
   "---",
-  paste0("*Rapport genere le ", Sys.time(), " — Kernel R v19.*")
+   paste0("*Rapport genere le ", Sys.time(), " — Kernel R v22 (donnees education reelles).*")
 )
 
 writeLines(rmd, "/kaggle/working/report.Rmd")

@@ -78,7 +78,7 @@ Raw Data (WB, IMF, OWID, Casablanca SE)
 | `fetch_all_hcp.py` | Download all HCP datasets from data.gov.ma |
 | `generate_charts.py` | Generate 10 economic charts (enhanced data) |
 | `charts_real.py` | Generate 7 charts with real data |
-| `generate_enhanced_data.py` | Create enhanced indicator CSVs |
+| `generate_economic_data.py` | Create enhanced indicator CSVs |
 | `optimize_r2.py` | R2 optimization (basic models) |
 | `optimize_real.py` | R2 optimization with real HCP data |
 | `optimize_honest.py` | Honest optimization (no GDP components) |
@@ -282,11 +282,11 @@ Le modele ML predit la **croissance du PIB reel (%)** du Maroc a partir de 15 in
 > **Pauvrete au Maroc.** Tendance descendante continue de 15% (1990) a 4% (2020). Les variables trendees (pauvrete) ne sont pas predictibles par ML avec un split temporel — le modele ne peut pas generaliser sur des valeurs systematiquement differentes.
 
 #### Education - Taux d'inscription (donnees reelles World Bank)
-![Education Enrollment Real](enhanced_data/charts_real/01_education_real.png)
+![Education Enrollment Real](economic_data/charts_real/01_education_real.png)
 > **Inscriptions scolaires (donnees reelles).** L'inscription primaire depasse 116% (taux brut, incluant les eleves ages), secondaire 88%, tertiaire 48%. La massification educationnelle progresse fortement depuis 2000.
 
 #### Education - Depenses et alphabetisation (donnees reelles)
-![Education Spending Real](enhanced_data/charts_real/02_education_spending_real.png)
+![Education Spending Real](economic_data/charts_real/02_education_spending_real.png)
 > **Depenses et alphabetisation (reel).** Les depenses d'education oscillent entre 4.5-6.3% du PIB. Le taux d'alphabetisation passe de 30% (1982) a 75% (2024). Progres significatif mais des lacunes persistent.
 
 #### Sante - Mortalite et esperance de vie
@@ -488,28 +488,28 @@ python run_k8s.py
 
 | Chart | File |
 |-------|------|
-| GDP Growth | ![GDP](enhanced_data/charts/01_gdp_growth.png) |
-| Inflation | ![Inflation](enhanced_data/charts/02_inflation.png) |
-| Trade Balance | ![Trade](enhanced_data/charts/03_trade.png) |
-| Unemployment | ![Unemployment](enhanced_data/charts/04_unemployment.png) |
-| Population | ![Population](enhanced_data/charts/05_population.png) |
-| Government Finance | ![Fiscal](enhanced_data/charts/06_fiscal.png) |
-| Actual vs Predicted | ![Pred](enhanced_data/charts/07_actual_vs_predicted.png) |
-| Correlation | ![Corr](enhanced_data/charts/08_correlation.png) |
-| Dashboard | ![Dash](enhanced_data/charts/09_dashboard.png) |
-| Model Performance | ![Perf](enhanced_data/charts/10_model_performance.png) |
+| GDP Growth | ![GDP](economic_data/charts/01_gdp_growth.png) |
+| Inflation | ![Inflation](economic_data/charts/02_inflation.png) |
+| Trade Balance | ![Trade](economic_data/charts/03_trade.png) |
+| Unemployment | ![Unemployment](economic_data/charts/04_unemployment.png) |
+| Population | ![Population](economic_data/charts/05_population.png) |
+| Government Finance | ![Fiscal](economic_data/charts/06_fiscal.png) |
+| Actual vs Predicted | ![Pred](economic_data/charts/07_actual_vs_predicted.png) |
+| Correlation | ![Corr](economic_data/charts/08_correlation.png) |
+| Dashboard | ![Dash](economic_data/charts/09_dashboard.png) |
+| Model Performance | ![Perf](economic_data/charts/10_model_performance.png) |
 
 #### Real Data Charts (World Bank Education)
 
 | Chart | File |
 |-------|------|
-| Education Enrollment | ![Edu](enhanced_data/charts_real/01_education_real.png) |
-| Education Spending | ![Spend](enhanced_data/charts_real/02_education_spending_real.png) |
-| GDP (real) | ![GDP](enhanced_data/charts_real/03_gdp_real.png) |
-| Unemployment (real) | ![Unemp](enhanced_data/charts_real/04_unemployment_real.png) |
-| Inflation (real) | ![Infl](enhanced_data/charts_real/05_inflation_real.png) |
-| Trade (real) | ![Trade](enhanced_data/charts_real/06_trade_real.png) |
-| Dashboard (real) | ![Dash](enhanced_data/charts_real/07_dashboard_real.png) |
+| Education Enrollment | ![Edu](economic_data/charts_real/01_education_real.png) |
+| Education Spending | ![Spend](economic_data/charts_real/02_education_spending_real.png) |
+| GDP (real) | ![GDP](economic_data/charts_real/03_gdp_real.png) |
+| Unemployment (real) | ![Unemp](economic_data/charts_real/04_unemployment_real.png) |
+| Inflation (real) | ![Infl](economic_data/charts_real/05_inflation_real.png) |
+| Trade (real) | ![Trade](economic_data/charts_real/06_trade_real.png) |
+| Dashboard (real) | ![Dash](economic_data/charts_real/07_dashboard_real.png) |
 
 ### Key Insights
 
@@ -577,18 +577,18 @@ Real data visualizations (10 charts) from Morocco economic analysis (1999-2026).
 
 | Chart | Description |
 |-------|-------------|
-| ![GDP](enhanced_data/charts/01_gdp_growth.png) | GDP Growth — average 3.73%, COVID shock -7.18% |
-| ![Inflation](enhanced_data/charts/02_inflation.png) | Inflation (CPI) — rising 1.73% → 3.03% |
-| ![Trade](enhanced_data/charts/03_trade.png) | Trade Balance — structural deficit -8.3% |
-| ![Unemployment](enhanced_data/charts/04_unemployment.png) | Unemployment — 10.1% average (jobless growth) |
-| ![Population](enhanced_data/charts/05_population.png) | Population — 1.13%/year growth, urbanization 63% |
-| ![Fiscal](enhanced_data/charts/06_fiscal.png) | Government Finance — debt 50.5% of GDP |
-| ![Actual vs Predicted](enhanced_data/charts/07_actual_vs_predicted.png) | Model predictions — SVR_linear R2=0.40 |
-| ![Correlation](enhanced_data/charts/08_correlation.png) | Correlation matrix — 117 features |
-| ![Dashboard](enhanced_data/charts/09_dashboard.png) | Dashboard — 4 key indicators |
-| ![Model Performance](enhanced_data/charts/10_model_performance.png) | Model comparison — SVR_linear best |
-| ![Education Real](enhanced_data/charts_real/01_education_real.png) | Education enrollment (real WB data) — primary 117%, secondary 88% |
-| ![Education Spending](enhanced_data/charts_real/02_education_spending_real.png) | Education spending & literacy (real) — 5-6% GDP, 75% literacy |
+| ![GDP](economic_data/charts/01_gdp_growth.png) | GDP Growth — average 3.73%, COVID shock -7.18% |
+| ![Inflation](economic_data/charts/02_inflation.png) | Inflation (CPI) — rising 1.73% → 3.03% |
+| ![Trade](economic_data/charts/03_trade.png) | Trade Balance — structural deficit -8.3% |
+| ![Unemployment](economic_data/charts/04_unemployment.png) | Unemployment — 10.1% average (jobless growth) |
+| ![Population](economic_data/charts/05_population.png) | Population — 1.13%/year growth, urbanization 63% |
+| ![Fiscal](economic_data/charts/06_fiscal.png) | Government Finance — debt 50.5% of GDP |
+| ![Actual vs Predicted](economic_data/charts/07_actual_vs_predicted.png) | Model predictions — SVR_linear R2=0.40 |
+| ![Correlation](economic_data/charts/08_correlation.png) | Correlation matrix — 117 features |
+| ![Dashboard](economic_data/charts/09_dashboard.png) | Dashboard — 4 key indicators |
+| ![Model Performance](economic_data/charts/10_model_performance.png) | Model comparison — SVR_linear best |
+| ![Education Real](economic_data/charts_real/01_education_real.png) | Education enrollment (real WB data) — primary 117%, secondary 88% |
+| ![Education Spending](economic_data/charts_real/02_education_spending_real.png) | Education spending & literacy (real) — 5-6% GDP, 75% literacy |
 
 ---
 

@@ -16,7 +16,7 @@ resp = requests.get(hcp_base, params=params, timeout=30)
 datasets = resp.json()["result"]["results"]
 print(f"Found {len(datasets)} HCP datasets")
 
-output_dir = "C:\\Users\\youss\\OneDrive\\Desktop\\morocco-economic-pipeline\\enhanced_data\\hcp_raw"
+output_dir = "C:\\Users\\youss\\OneDrive\\Desktop\\morocco-economic-pipeline\\economic_data\\hcp_raw"
 os.makedirs(output_dir, exist_ok=True)
 
 # Download ALL XLSX files
@@ -197,6 +197,6 @@ print(f"Final shape: {df.shape}")
 print(f"Columns: {len(df.columns)}")
 
 # Save
-df.to_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_comprehensive.csv", index=False)
+df.to_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_comprehensive.csv", index=False)
 print(f"\nSaved: morocco_comprehensive.csv ({df.shape[0]} rows, {df.shape[1]} columns)")
 print("DONE")

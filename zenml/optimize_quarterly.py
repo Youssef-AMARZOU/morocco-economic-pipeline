@@ -10,7 +10,7 @@ from sklearn.feature_selection import SelectKBest, f_regression
 import warnings
 warnings.filterwarnings('ignore')
 
-df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_quarterly_full.csv")
+df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_quarterly_full.csv")
 print(f"Dataset: {df.shape[0]} rows, {df.shape[1]} columns")
 
 target = "gdp_growth_yoq"

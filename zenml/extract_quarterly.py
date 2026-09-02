@@ -7,7 +7,7 @@ warnings.filterwarnings('ignore')
 
 print("=== Extracting Quarterly GDP from HCP ===")
 
-hcp_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\hcp_raw"
+hcp_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\hcp_raw"
 
 # Find GDP decomposition files
 gdp_files = []

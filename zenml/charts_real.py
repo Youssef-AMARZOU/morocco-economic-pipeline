@@ -11,10 +11,10 @@ plt.rcParams['figure.facecolor'] = 'white'
 plt.rcParams['axes.facecolor'] = '#f8f9fa'
 
 # Load real data
-df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\education_real.csv")
-df_indicators = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_real_data.csv")
+df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\education_real.csv")
+df_indicators = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_real_data.csv")
 
-output_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\charts_real"
+output_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\charts_real"
 os.makedirs(output_dir, exist_ok=True)
 
 # === 1. Education Enrollment (REAL) ===

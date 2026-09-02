@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 print("=== Building Quarterly Morocco Dataset ===")
 
 # Parse quarterly GDP from HCP
-hcp_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\hcp_raw"
+hcp_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\hcp_raw"
 
 # Read the GDP decomposition (CVS - chain linked volume)
 fpath = os.path.join(hcp_dir, "13_Décomposition_du_PIB_(CVS)_aux_prix_de_l.xlsx")
@@ -130,7 +130,7 @@ print(f"Final quarterly dataset: {df_q.shape}")
 print(f"Columns: {len(df_q.columns)}")
 
 # Save
-df_q.to_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_quarterly_full.csv", index=False)
+df_q.to_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_quarterly_full.csv", index=False)
 print(f"\nSaved: morocco_quarterly_full.csv ({df_q.shape[0]} rows, {df_q.shape[1]} columns)")
 print(f"Quarters: {df_q['quarter'].iloc[0]} to {df_q['quarter'].iloc[-1]}")
 print("DONE")

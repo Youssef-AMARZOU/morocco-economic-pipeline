@@ -13,9 +13,9 @@ plt.rcParams['axes.facecolor'] = '#f8f9fa'
 plt.rcParams['axes.edgecolor'] = '#dee2e6'
 plt.rcParams['grid.alpha'] = 0.3
 
-df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_real_data.csv")
+df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_real_data.csv")
 
-output_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\charts"
+output_dir = r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\charts"
 import os
 os.makedirs(output_dir, exist_ok=True)
 

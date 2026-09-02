@@ -9,7 +9,7 @@ from sklearn.impute import SimpleImputer
 import warnings
 warnings.filterwarnings('ignore')
 
-df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\morocco_indicators_enhanced.csv")
+df = pd.read_csv(r"C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\morocco_indicators_enhanced.csv")
 
 target = "gdp_real_growth_pct"
 exclude = ["year", target, "gdp_current_usd", "gdp_per_capita_usd",

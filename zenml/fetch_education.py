@@ -32,5 +32,5 @@ for code, name in EDU.items():
         print(f'{name}: ERROR ({e})')
 
 df = pd.DataFrame(data)
-df.to_csv(r'C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\enhanced_data\education_real.csv', index=False)
+df.to_csv(r'C:\Users\youss\OneDrive\Desktop\morocco-economic-pipeline\economic_data\education_real.csv', index=False)
 print(f'\nSaved: education_real.csv ({df.shape[0]} rows, {df.shape[1]} columns)')
