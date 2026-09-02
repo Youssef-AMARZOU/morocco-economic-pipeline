@@ -339,30 +339,30 @@ World Bank API  -->  K8s Pod (fetch_and_prepare)  -->  K8s Pod (train_and_log)  
 | Container Registry | `local_registry` | `localhost:5001` |
 | Experiment Tracker | `mlflow_tracker` | `http://localhost:5000` |
 
-### Results (Run #0020)
+### Results
 
-| Metric | Basic (WB) | Enhanced (HCP+WB+IMF) | **Optimal** |
-|--------|------------|----------------------|-------------|
-| **R2** | -0.1183 | +0.1985 | **+0.3957** |
-| **RMSE** | 4.1327 | 3.9659 | **3.4436** |
-| **Samples** | 27 | 28 | 28 |
-| **Features** | 8 | 40+ | 31 |
-| **Best Model** | Ridge(a=100) | Ridge(a=10) | **SVR_linear** |
-| **Sources** | World Bank | HCP+WB+IMF | HCP+WB+IMF |
+| Metric | Basic (WB) | Enhanced (HCP+WB+IMF) | Optimal (Annual) | **Optimal (Quarterly)** |
+|--------|------------|----------------------|------------------|------------------------|
+| **R2** | -0.1183 | +0.1985 | +0.5114 | **+0.9130** |
+| **RMSE** | 4.1327 | 3.9659 | 3.0964 | **0.7560** |
+| **Samples** | 27 | 28 | 28 | **43 quarters** |
+| **Features** | 8 | 40+ | 100 | **50** |
+| **Best Model** | Ridge(a=100) | Ridge(a=10) | SVR_linear | **SVR_linear** |
+| **Sources** | World Bank | HCP+WB+IMF | HCP+WB+IMF | **HCP Quarterly + WB** |
 
-#### Actual vs Predicted (GDP Real Growth %) - Optimal (SVR_linear)
+#### Actual vs Predicted (GDP Growth %) - Optimal Quarterly (SVR_linear, R2=0.91)
 
-| Year | Actual | Predicted | Error |
-|------|--------|-----------|-------|
-| 2020 | -7.18% | -6.68% | +0.50 |
-| 2021 | 8.15% | 0.53% | -7.63 |
-| 2022 | 1.81% | -1.89% | -3.71 |
-| 2023 | 3.66% | 2.71% | -0.95 |
-| 2024 | 3.79% | 1.41% | -2.38 |
-| 2025 | 4.60% | 5.08% | +0.49 |
-| 2026 | 4.60% | 2.58% | -2.02 |
+| Quarter | Actual | Predicted | Error |
+|---------|--------|-----------|-------|
+| 2023T1 | 1.03% | 0.35% | -0.69 |
+| 2023T2 | -1.60% | -2.75% | -1.15 |
+| 2023T3 | 3.67% | 4.65% | +0.98 |
+| 2023T4 | 1.09% | 0.83% | -0.26 |
+| 2024T1 | -0.58% | -0.32% | +0.26 |
+| 2024T2 | -1.77% | -2.54% | -0.78 |
+| 2024T3 | 5.69% | 6.40% | +0.72 |
 
-**Interpretation:** SVR_linear achieves R2=0.40 — the best possible with annual data (28 samples). The model captures COVID-19 shock (2020: predicted -6.68% vs actual -7.18%) but struggles with the 2021 rebound (predicted 0.53% vs actual 8.15%). For GDP growth with only 28 data points, R2=0.40 is excellent.
+**Interpretation:** Using quarterly HCP GDP data (43 quarters, 2014-2024) with 50 engineered features, SVR_linear achieves **R2=0.91** — explaining 91% of GDP growth variance. The model captures seasonal patterns, COVID-19 shock, and recovery dynamics. RMSE=0.76% means predictions are within ~0.8 percentage points of actual values.
 
 ### Dashboard
 - **ZenML**: http://localhost:8080
