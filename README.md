@@ -22,22 +22,6 @@
 
 ---
 
-## GitHub Activity (Live)
-
-<div align="center">
-
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=Youssef-AMARZOU&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117&count_private=true" />
-
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Youssef-AMARZOU&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117" />
-
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Youssef-AMARZOU&theme=github-dark&hide_border=true&bg_color=0d1117)](https://github.com/Youssef-AMARZOU)
-
-[![Trophies](https://github-profile-trophy.vercel.app/?username=Youssef-AMARZOU&theme=tokyonight&no-frame=true&margin-w=4)](https://github.com/Youssef-AMARZOU)
-
-</div>
-
----
-
 ## Kaggle Resources
 
 | Resource | Link |
