@@ -18,7 +18,7 @@
 [![MLflow](https://img.shields.io/badge/MLflow-0078D4?style=flat&logo=mlflow&logoColor=white)](https://mlflow.org)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)](https://tensorflow.org)
 
-[![My Skills](https://skillicons.dev/icons?i=python,r,kubernetes,docker,mysql,pandas,sklearn,tensorflow,git,github,md&theme=dark)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=python,r,kubernetes,docker,mysql,tensorflow,git,github,md&theme=dark)](https://skillicons.dev)
 
 ---
 
