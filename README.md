@@ -570,8 +570,6 @@ Apache 2.0
 
 <div align="center">
 
-[![ProfileVisits](https://komarev.com/ghpvc/?username=Youssef-AMARZOU&label=Profile+Visits&color=blue&style=for-the-badge)](https://github.com/Youssef-AMARZOU)
-
 ![footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=120&section=footer)
 
 </div>
