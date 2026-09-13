@@ -413,6 +413,24 @@ master %>% filter(year >= 1980)  # exclude interpolated years
 | UNDP | 2000-2021 | HDI, inequality, poverty |
 | Casablanca Stock Exchange | 2010-2024 | Bank stock prices (Attijariwafa, BMCE, CIH) |
 
+### Bulk Collection — 1GB of Real Morocco Data
+
+| Domain | Files | Size | Source |
+|--------|-------|------|--------|
+| Geography (roads, buildings, POIs) | `osm/morocco-latest.osm.pbf` | 243 MB | Geofabrik OSM |
+| Geography (GIS-ready) | `osm/morocco-latest-free.shp.zip` | 468 MB | Geofabrik OSM |
+| Elevation 30m (Casa, Marrakech, Tanger, Agadir) | `geo/dem/*.tif` (4 tiles) | 130 MB | Copernicus DEM |
+| Admin boundaries | `geo/gadm41_MAR.*` | 11 MB | GADM v4.1 |
+| Press text (Darija/FR, 145k+65k+57k articles) | `text/press*` | 264 MB | HF Darija org |
+| YouTube subtitles (Darija) | `text/yt_subs` | 6 MB | HF bourbouh |
+| ASR + Wikipedia Darija | `text/dakh`, `text/wiki_darija`, `text/asr_snousnou` | 4 MB | HF community |
+| Climate daily (15 cities, partial) | `climate_morocco_cities.csv` | 1 MB | Open-Meteo |
+| Trade detail HS chapters (partial) | `comtrade_morocco_ag2.csv` | growing | UN Comtrade |
+| WDI full Morocco slice (1498 indicators) | `wdi_morocco_full.csv` | 1 MB | World Bank |
+| HCP official tables (63 XLSX) | `hcp_real/` | 2 MB | data.gov.ma |
+
+**Total: ~1.1 GB — all real, no synthetic data.** Fetcher scripts in `zenml/` (`fetch_geo.py`, `fetch_wdi_bulk.py`, `fetch_climate.py`, `fetch_comtrade.py`, `fetch_wikidata.py`, `fetch_education.py`).
+
 ---
 
 ## Key Results

@@ -5,6 +5,16 @@
 *.csv
 *.log
 *.html
+*.pbf
+*.bz2
+*.zip
+*.nc
+*.tif
+*.tiff
+*.shp
+*.shx
+*.dbf
+*.parquet
 .DS_Store
 
 # Allow pipeline output images
