@@ -26,7 +26,7 @@
 
 | Resource | Link |
 |----------|------|
-| **Dataset** (23 CSVs + charts) | [amarzouyoussef/economie-maroc-rasd](https://www.kaggle.com/datasets/amarzouyoussef/economie-maroc-rasd) |
+| **Dataset** (24 CSVs + charts) | [amarzouyoussef/economie-maroc-rasd](https://www.kaggle.com/datasets/amarzouyoussef/economie-maroc-rasd) |
 | **Charts & Insights V2** | [amarzouyoussef/morocco-charts-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-charts-v2) |
 | **Analysis V2** (CSV + HCP) | [amarzouyoussef/morocco-economic-analysis-v2](https://www.kaggle.com/datasets/amarzouyoussef/morocco-economic-analysis-v2) |
 | **R Kernel** (notebook) | [amarzouyoussef/maroc-pipeline-r](https://www.kaggle.com/code/amarzouyoussef/maroc-pipeline-r) |
