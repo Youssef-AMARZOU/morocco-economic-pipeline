@@ -1,0 +1,48 @@
+{
+  "entity": "Q1028",
+  "entity_url": "https://www.wikidata.org/wiki/Q1028",
+  "retrieved_utc": "2026-09-13",
+  "columns": {
+    "population": {
+      "wikidata_property": "P1082",
+      "label": "population",
+      "unit": "count"
+    },
+    "hdi": {
+      "wikidata_property": "P1081",
+      "label": "Human Development Index",
+      "unit": "count"
+    },
+    "life_expectancy_years": {
+      "wikidata_property": "P2250",
+      "label": "life expectancy",
+      "unit": "year"
+    },
+    "gdp_nominal_usd": {
+      "wikidata_property": "P2131",
+      "label": "nominal GDP",
+      "unit": "United States dollar"
+    },
+    "unemployment_rate_pct": {
+      "wikidata_property": "P1198",
+      "label": "unemployment rate",
+      "unit": "percent"
+    },
+    "households": {
+      "wikidata_property": "P1538",
+      "label": "number of households",
+      "unit": "count"
+    },
+    "female_population": {
+      "wikidata_property": "P1539",
+      "label": "female population",
+      "unit": "count"
+    },
+    "male_population": {
+      "wikidata_property": "P1540",
+      "label": "male population",
+      "unit": "count"
+    }
+  },
+  "note": "Real Wikidata statements only; missing years are empty (no interpolation)."
+}

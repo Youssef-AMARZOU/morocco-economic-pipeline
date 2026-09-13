@@ -93,6 +93,7 @@ Raw Data (WB, IMF, OWID, Casablanca SE)
 | `run_enhanced.py` | Enhanced pipeline (HCP+WB+IMF, 130 features) |
 | `fetch_real_data.py` | Download 63 HCP XLSX + 25 World Bank indicators |
 | `fetch_education.py` | Fetch real education data from World Bank API |
+| `fetch_wikidata.py` | Fetch Morocco (Q1028) time-series from Wikidata API |
 | `fetch_all_hcp.py` | Download all HCP datasets from data.gov.ma |
 | `generate_charts.py` | Generate 10 economic charts (enhanced data) |
 | `charts_real.py` | Generate 7 charts with real data |
@@ -406,6 +407,7 @@ master %>% filter(year >= 1980)  # exclude interpolated years
 |--------|----------|------------|
 | World Bank (WDI) | 1960-2024 | GDP, inflation, debt, trade, population, education |
 | World Bank (Education) | 1971-2024 | Primary/secondary/tertiary enrollment, spending, literacy |
+| Wikidata (Q1028) | 1960-2024 | Population, HDI, life expectancy, GDP, unemployment |
 | IMF (WEO) | 1980-2029 | GDP forecasts, fiscal balance, current account |
 | Our World in Data | 1960-2023 | Energy, CO2, health, demographics |
 | UNDP | 2000-2021 | HDI, inequality, poverty |
